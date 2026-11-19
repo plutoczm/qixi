@@ -1,0 +1,222 @@
+/* Customer-facing visual layer. Keep product experience distinct from engineering evidence. */
+:root {
+  --ink:#213b38; --pine:#1c5c52; --rail:#1c5c52; --muted:#65766f;
+  --line:#e2e8e1; --amber:#bd8750; --paper:#fbfaf6;
+}
+html {scroll-padding-top:18px}
+body {background:#fafaf7; background-image:radial-gradient(circle at 95% 3%,#eaf2eb 0,transparent 35rem)}
+.app-shell {max-width:1540px; padding-inline:clamp(18px,4vw,64px)}
+.site-header {height:88px; border-color:#e5eae5; gap:30px}
+.brand {flex:none; gap:12px; letter-spacing:1px; font-size:25px}
+.brand-mark {background:#1d6054; border-radius:14px 14px 14px 4px; box-shadow:0 5px 17px #154b4030}
+.brand small {font-size:10px; letter-spacing:1px; color:#8c9c90; font-weight:500; margin-top:-1px}
+.top-nav {display:flex; gap:clamp(18px,2.6vw,40px); align-items:center; margin-left:auto; margin-right:auto}
+.top-nav a {font-size:13px; color:#526b62; padding:12px 2px; font-weight:650; transition:color .2s}
+.top-nav a:hover {color:#155c4c}
+.nav-cta {display:inline-flex; align-items:center; justify-content:center; gap:17px; padding:11px 20px; border-radius:99px; background:#1e5e53; color:white; font-size:12px; font-weight:700; white-space:nowrap; transition:background .2s, transform .2s}
+.nav-cta:hover {background:#287767; transform:translateY(-1px)}
+.consumer-hero {padding:30px 0 22px; margin:0}
+.consumer-hero .hero-layout {grid-template-columns:minmax(0,1fr) minmax(360px,.95fr); gap:clamp(22px,3.5vw,58px)}
+.consumer-hero .hero-copy {padding:4px 0 12px}
+.consumer-hero .hero-kicker {font-size:11px; color:#627f68; letter-spacing:1.1px}
+.consumer-hero h1 {font-size:clamp(42px,4.2vw,66px); margin:19px 0 17px; line-height:1.25; color:#183f36}
+.consumer-hero h1 em {color:#b9804c}
+.consumer-hero p {font-size:14px; line-height:1.9; max-width:490px; color:#70857a}
+.consumer-hero .hero-actions {margin-top:24px}
+.consumer-hero .hero-primary {min-width:156px; border-radius:99px; padding:14px 22px}
+.consumer-hero .hero-secondary {font-size:13px}
+.hero-benefits {display:flex; gap:17px; margin-top:24px; color:#648379; font-size:11px}
+.hero-benefits span {display:inline-flex; align-items:center; gap:7px}
+.hero-benefits span::before {content:'✓'; color:#36816d; font-weight:800}
+.consumer-hero .hero-scene {height:304px; max-height:40vw; border-radius:28px; box-shadow:0 18px 48px #1d4f3e1b}
+.scene-index {font-size:9px}
+.scene-note {border-radius:16px; padding:17px 21px}
+.scene-note strong {font-size:17px}
+.consumer-main {max-width:1400px; margin:0 auto}
+.booking-zone {position:relative; margin:0 0 23px; scroll-margin-top:20px}
+.booking-zone > .search-form {padding:26px 30px 20px; border-radius:20px; border:1px solid #e2e9e2; box-shadow:0 20px 54px #183e2d12; background:#fff; overflow:visible}
+.booking-zone > .search-form::before {left:30px; right:auto; width:75px; height:4px; border-radius:20px; background:#b89e78; top:0}
+.search-form .form-heading {display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:23px; padding:0; border:0}
+.search-form .form-heading h2 {font-size:25px; letter-spacing:-.035em; margin:6px 0 0; color:#1d443c}
+.search-form .form-heading p {font-size:12px; color:#7b8c83; max-width:380px; text-align:right}
+.search-core-grid {display:grid; grid-template-columns:1.07fr 1.28fr 1.03fr 1.14fr; gap:clamp(12px,1.7vw,24px); align-items:start}
+.search-core-grid > div {min-width:0}
+.search-core-grid label {font-size:12px; font-weight:700; color:#344f47; margin:0 0 10px}
+.search-core-grid .field-pair {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0}
+.search-core-grid .field-pair > div {min-width:0}
+.search-core-grid input, .search-core-grid select {height:46px; border-radius:10px; font-size:12px; background:#fbfcfa}
+.search-core-grid .field-pair input[type=date] {padding:7px 6px; font-size:11px; letter-spacing:-.3px}
+.search-core-grid .place-row {grid-template-columns:minmax(0,1fr) 82px; gap:8px}
+.search-core-grid .money-input {height:46px; border-radius:10px; background:#fbfcfa}
+.search-core-grid .money-input input {height:42px; padding:7px 4px}
+.search-core-grid .city-chips {margin:10px 0 0; align-items:center; gap:8px}
+.search-core-grid .city-chips button {padding:3px 11px; background:#edf5ee; color:#356e54; border-color:#cfe2d2; border-radius:14px}
+.search-core-grid .city-chips button:hover {background:#e1f1e7}
+.search-core-grid .city-chips .field-note {margin:0; line-height:1.5}
+.search-core-grid input:focus,.search-core-grid select:focus {border-color:#388269; box-shadow:0 0 0 3px #b8e0c1ab}
+.search-form .age-fields {margin-top:12px; max-width:460px}
+.search-options-row {display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; padding-top:15px; margin-top:15px; border-top:1px solid #eef1ea}
+.search-branch-choice {margin:0 auto 0 0; color:#3b5d53; display:inline-flex; align-items:center; font-size:12px}
+.search-branch-choice input {width:16px; height:16px; accent-color:#1c6755}
+.search-options-row .search-button {order:2; margin:0 0 0 auto; width:220px; height:49px; border-radius:12px; font-size:14px; justify-content:space-between; padding-inline:23px; box-shadow:0 10px 22px #19574624}
+.search-options-row .advanced-options {order:3; flex-basis:100%; font-size:12px; color:#426f5e}
+.advanced-options summary {display:inline-flex; gap:8px; align-items:center; cursor:pointer; list-style:none; font-weight:700; color:#3a7160; padding:7px 4px}
+.advanced-options summary::-webkit-details-marker {display:none}
+.advanced-options summary span {font-size:16px; transition:transform .2s}
+.advanced-options[open] summary span {transform:rotate(180deg)}
+.advanced-options-body {margin-top:6px; padding:18px 22px; background:#f6f9f5; border:1px solid #e0ebe1; border-radius:14px; max-width:780px}
+.advanced-options .dorm-field {padding:0; margin:0}
+.advanced-options .dorm-field .field-note {max-width:650px}
+.advanced-options .limit-field {max-width:360px}
+.advanced-options .recall-options {background:#fff; margin-top:16px; border-radius:12px; padding:18px}
+.search-form .form-source {text-align:left; margin:10px 0 0; font-size:11px; color:#83948c}
+.assistant-drawer {margin:16px 0 0; border:1px solid #e0eae2; border-radius:15px; background:#f4f8f3; overflow:hidden; scroll-margin-top:26px}
+.assistant-drawer > summary {list-style:none; cursor:pointer; display:flex; align-items:center; gap:15px; padding:17px 23px; min-height:76px}
+.assistant-drawer > summary::-webkit-details-marker {display:none}
+.assistant-spark {width:43px; height:43px; background:#e1eee6; color:#39816b; border-radius:13px; display:grid; place-items:center; font-size:28px}
+.assistant-drawer > summary > span:nth-child(2) {display:flex; flex-direction:column; gap:3px}
+.assistant-drawer > summary strong {font-size:14px; color:#274d43}
+.assistant-drawer > summary small {font-size:11px; color:#81958c; font-weight:400}
+.assistant-arrow {margin-left:auto; color:#49836a; font-size:12px; font-weight:700; white-space:nowrap}
+.assistant-drawer[open] > summary {border-bottom:1px solid #dfe8df}
+.assistant-drawer > .natural-query {margin:0; border:0; border-radius:0; box-shadow:none; background:#fbfcfa; padding:22px 25px}
+.assistant-drawer > .natural-query::before {display:none}
+.assistant-drawer .natural-models button {display:none}
+.value-strip {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:#e5ebe2; border:1px solid #e5ebe2; border-radius:17px; overflow:hidden; margin:24px 0 42px}
+.value-strip > div {background:#f9faf6; display:flex; align-items:center; gap:16px; padding:23px 22px; min-width:0}
+.value-icon {display:grid; place-items:center; flex:none; width:49px; height:49px; background:#e8f1e8; border-radius:15px; color:#377764; font-size:25px}
+.value-strip strong {display:block; color:#34554c; font-size:13px; font-weight:750}
+.value-strip p {color:#87988d; font-size:11px; margin-top:4px; line-height:1.6}
+.results {max-width:1180px; margin:0 auto; scroll-margin-top:20px}
+.results-heading {border:0; border-bottom:1px solid #e1e9e0; margin:0 0 20px; padding:0 0 16px}
+.results-heading h2 {font-size:27px; font-weight:750}
+.results .section-kicker {color:#aa8a63; font-size:10px}
+.results .source-label {font-size:11px; color:#627f71; background:#f0f6f0; border-color:#d9e8da; border-radius:18px}
+.results .welcome-state {min-height:270px; padding:46px 35px; border-radius:21px; border-color:#e1e7df; box-shadow:0 10px 30px #164e3910}
+.results .welcome-state h3 {font-size:23px}
+.results .welcome-state > p {max-width:440px; line-height:1.8}
+.results .welcome-points {gap:25px}
+.booking-caveat {background:#f5f8f4; border:1px solid #dbe8dc; padding:13px 17px; border-radius:12px; color:#567266; font-size:12px; line-height:1.8; margin:0 0 17px}
+.condition-summary {background:#f4f7f1; border-left:3px solid #5c9f77; margin-bottom:12px; border-radius:9px}
+.result-meta {font-size:12px; color:#59746a; padding:8px 0 10px; margin:12px 0}
+.result-meta strong {font-size:19px; color:#1e6a54}
+.results .coverage-note {color:#8e9c91; margin-bottom:18px}
+.results .hotel-grid {gap:19px}
+.results .hotel-card {border-radius:18px; box-shadow:0 14px 40px #123a2910}
+.results .hotel-card .hotel-body h3 {font-size:21px}
+.results .hotel-card .hotel-photo {min-height:238px}
+.results .hotel-card .price-caption {font-size:11px}
+.results .hotel-card .price {font-size:30px}
+.results .hotel-actions .button {border-radius:9px}
+.results .travel-launch {background:#f9fbf8}
+.discover-drawer, .discovery-drawer {margin-top:23px; border:1px solid #dfe8df; border-radius:13px; overflow:hidden; background:#f9fbf7}
+.discovery-drawer > summary {cursor:pointer; list-style:none; padding:17px 21px; font-size:13px; color:#3e6e5e; font-weight:750}
+.discovery-drawer > summary::-webkit-details-marker {display:none}
+.discovery-drawer > summary::after {content:'⌄'; float:right; font-size:16px; color:#658c7a}
+.discovery-drawer > .discovery-panel {margin:0; box-shadow:none; border:0; border-top:1px solid #e0ebe1; border-radius:0}
+.results .result-disclaimer {color:#7c9187; padding:18px 0 0; margin-top:28px; line-height:1.8}
+.results .result-disclaimer strong {font-size:12px; color:#5f776b}
+.consumer-footer {display:flex; align-items:center; justify-content:space-between; gap:24px; border-top:1px solid #e3e8e0; margin-top:66px; padding:30px 0 44px}
+.footer-lead {display:flex; align-items:center; gap:15px}
+.footer-lead .footer-brand {font-family:inherit; font-size:21px}
+.footer-lead span {color:#899c91; font-size:12px}
+.footer-disclosure {max-width:410px; color:#7f9589; font-size:11px}
+.footer-disclosure summary {cursor:pointer; font-size:12px; text-align:right; list-style:none}
+.footer-disclosure p {line-height:1.8; margin-top:11px; text-align:left}
+@media(max-width:1190px) {
+  .search-core-grid {grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:17px}
+  .consumer-hero .hero-layout {grid-template-columns:minmax(0,1fr) minmax(340px,.95fr); gap:24px}
+  .consumer-hero .hero-scene {height:285px}
+}
+@media(max-width:850px) {
+  .top-nav {gap:14px}
+  .top-nav a {font-size:12px}
+  .site-header {gap:18px}
+  .nav-cta {padding:10px 15px}
+  .consumer-hero .hero-layout {grid-template-columns:1fr}
+  .consumer-hero .hero-scene {height:252px; max-height:none}
+  .consumer-hero .hero-copy {padding-top:0}
+  .consumer-hero h1 {font-size:clamp(39px,5.7vw,51px)}
+  .value-strip > div {padding:17px 13px; gap:10px}
+  .value-icon {width:39px;height:39px;font-size:21px}
+  .value-strip p {font-size:10px}
+}
+@media(max-width:640px) {
+  .app-shell {padding-inline:16px}
+  .site-header {height:73px; gap:10px}
+  .top-nav {display:none}
+  .nav-cta {margin-left:auto; padding:9px 13px; font-size:11px; gap:7px}
+  .brand {font-size:21px}
+  .brand small {font-size:9px}
+  .consumer-hero {padding:22px 0 17px}
+  .consumer-hero h1 {font-size:clamp(37px,10vw,49px); margin:16px 0 12px}
+  .consumer-hero .hero-kicker {font-size:10px}
+  .consumer-hero p {font-size:12px}
+  .consumer-hero .hero-actions {margin-top:20px}
+  .consumer-hero .hero-scene {height:196px; border-radius:20px}
+  .hero-benefits {margin-top:18px; gap:14px; flex-wrap:wrap}
+  .booking-zone > .search-form {padding:22px 18px 18px; border-radius:16px}
+  .search-form .form-heading {display:block; margin-bottom:20px}
+  .search-form .form-heading h2 {font-size:23px}
+  .search-form .form-heading p {text-align:left; margin-top:6px}
+  .search-core-grid {grid-template-columns:1fr; gap:15px}
+  .search-core-grid label {margin-bottom:7px}
+  .search-core-grid input,.search-core-grid select,.search-core-grid .money-input {height:48px; font-size:13px}
+  .search-core-grid .money-input input {height:45px}
+  .search-core-grid .field-pair input[type=date] {font-size:12px}
+  .search-core-grid .city-chips {margin-top:8px}
+  .search-options-row {gap:7px}
+  .search-branch-choice {flex-basis:100%; margin-bottom:5px}
+  .search-options-row .search-button {order:1; width:100%; margin:0; justify-content:center; height:49px}
+  .search-options-row .advanced-options {order:2; flex-basis:100%}
+  .advanced-options-body {padding:16px 13px}
+  .assistant-drawer > summary {padding:14px 16px; gap:10px}
+  .assistant-spark {width:37px; height:37px; font-size:23px}
+  .assistant-drawer > summary strong {font-size:12px}
+  .assistant-drawer > summary small {font-size:10px}
+  .assistant-arrow {font-size:10px}
+  .value-strip {grid-template-columns:1fr; margin:19px 0 34px}
+  .value-strip > div {padding:16px 17px; gap:15px}
+  .value-strip strong {font-size:12px}
+  .value-strip p {font-size:11px}
+  .results-heading h2 {font-size:21px}
+  .results .welcome-state {padding:40px 21px; min-height:252px}
+  .results .welcome-state h3 {font-size:20px}
+  .results .hotel-card .hotel-photo {min-height:0}
+  .consumer-footer {align-items:start; flex-direction:column; margin-top:38px; padding:27px 0 35px}
+  .footer-lead {flex-wrap:wrap; gap:8px}
+  .footer-disclosure summary {text-align:left}
+}
+@media(max-width:380px) {
+  .app-shell {padding-inline:13px}
+  .booking-zone > .search-form {padding-inline:13px}
+  .consumer-hero .hero-scene {height:175px}
+  .search-core-grid .field-pair {gap:7px}
+  .search-core-grid .place-row {gap:6px}
+}
+@media(prefers-reduced-motion:reduce) {
+ .consumer-hero .hero-copy>*, .consumer-hero .hero-scene {opacity:1!important; transform:none!important}
+ .nav-cta, .search-button {transition:none!important}
+}
+
+/* Present safety guidance clearly, with technical detail available on demand. */
+.bookability-gate {background:#f8faf6; border:1px solid #dbe8de; border-left:4px solid #84ac92; border-radius:14px; padding:18px 21px; box-shadow:none}
+.bookability-gate-title {display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.bookability-gate-title strong {font-size:15px; color:#315a49; font-weight:750}
+.bookability-gate-title span {font-size:11px; color:#7b895f}
+.bookability-summary {font-size:12px; line-height:1.9; color:#5f7969; margin:11px 0 5px}
+.bookability-evidence {margin-top:8px}
+.bookability-evidence summary {cursor:pointer; color:#3d7961; font-size:12px; font-weight:700; padding:6px 0; list-style:none}
+.bookability-evidence summary::after {content:'⌄'; padding-left:8px}
+.bookability-evidence-body {padding:12px 15px; border:1px solid #dbe8df; background:#fff; border-radius:10px; margin-top:8px; line-height:1.8; color:#677a70}
+.bookability-evidence-body strong {font-size:12px}
+.bookability-evidence-body p {margin:8px 0 0; font-size:11px; line-height:1.8}
+
+.results-heading > div {display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.edit-search-link {margin-top:7px; color:#347964; font-size:12px; font-weight:700; text-decoration:underline; text-decoration-color:#9cbaa9; text-underline-offset:4px; padding:2px 0}
+.edit-search-link:hover {color:#bb8352; text-decoration-color:#bb8352}
+.search-scope {font-size:11px; color:#7e9187; margin:0 0 17px}
+.search-scope > summary {display:inline-flex; align-items:center; gap:8px; cursor:pointer; list-style:none; color:#6c8577; font-size:11px; padding:3px 0}
+.search-scope > summary::after {content:'⌄'; font-size:13px}
+.search-scope > summary::-webkit-details-marker {display:none}
+.search-scope > .coverage-note {margin:8px 0 0; padding:10px 12px; border-left:2px solid #bdd3c3; background:#f7faf7; border-radius:0 9px 9px 0}

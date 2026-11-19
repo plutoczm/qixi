@@ -1,0 +1,1231 @@
+{
+  "version": 2,
+  "as_of": "2026-10-17",
+  "review_scope": "用户已批准道旅住宿、高德/腾讯个人地图Key及滴滴个人MCP路线；本登记修订未读取秘密、调用API或验证实际能力。",
+  "state_values": [
+    "unverified",
+    "verified",
+    "blocked",
+    "unsupported"
+  ],
+  "verification_rule": "profile由代码常量固定必要来源：rollinggo/amap/tencent/didi；ctrip/meituan仅历史optional且保持blocked，不计active门禁。必要来源与能力须有真实证据、足量样本及明确用途许可；配置Key和离线预检不颁发G0。未知缓存许可禁用缓存。",
+  "providers": [
+    {
+      "id": "rollinggo",
+      "name": "道旅 RollingGo",
+      "category": "hotels",
+      "required_for_v1": true,
+      "status": "verified",
+      "block_reason": null,
+      "evidence_document": "docs/project_notes.md",
+      "permissions": {
+        "application_subject": "user-registered individual developer",
+        "credentials_present": true,
+        "authorization_verified": true,
+        "consumer_use_allowed": true,
+        "display_allowed": true,
+        "comparison_allowed": true,
+        "cache_allowed": null,
+        "retention_policy": "No quote cache or persisted raw supplier responses. Retain de-identified verification metadata only.",
+        "coordinate_cross_use_allowed": null,
+        "rate_limit": null,
+        "cost_policy": null,
+        "personal_information_requirement": "No guest identity or phone submitted in read-only probes.",
+        "handoff_allowed": true,
+        "authorization_expires_at": null,
+        "approval_reference": null,
+        "permission_basis": "Official API Key documentation permits developer/Agent search, quote comparison and returned booking handoff. Current scope is private local use; broader commercial redistribution remains unverified.",
+        "commercial_redistribution_allowed": null
+      },
+      "capabilities": {
+        "authorization": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "确认道旅项目API适用的只读查询、展示与当前用途许可；Key存在不等于许可。"
+        },
+        "search_hotels": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "获准真实住宿检索返回可追溯的供应商住宿ID，不虚构平台映射。",
+          "sample_count_scope": "R3.1 direct source operations; not cumulative or full G2."
+        },
+        "dated_room_quotes": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "指定入住退房、人数与房数的真实房型报价；区分测试/生产与查询时间。",
+          "sample_count_scope": "R3.1 direct source operations; not cumulative or full G2.",
+          "verification_scope": "Date-specific display quotes accepted for tested requests; no occupancy/inventory/total guarantee."
+        },
+        "currency": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "从真实字段核实币种、单位与金额口径；不得默认人民币或含税。",
+          "sample_count_scope": "R3.1 direct source operations; not cumulative or full G2."
+        },
+        "quote_context": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "报价与住宿/房型、入住退房、人数/房数及查询时间上下文绑定，不把无日期静态价格当实时报价。",
+          "sample_count_scope": "R3.1 direct source operations; not cumulative or full G2.",
+          "verification_scope": "Request-bound input plus hotel/date echoes; source occupancy echo absent, not verified."
+        },
+        "overnight_availability": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "是否支持过夜及连续住期待实测；未知不表示可订。",
+          "data_status": "unknown"
+        },
+        "sufficient_inventory": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "库存及多间房可用数量待实测；不能简单乘房价。",
+          "data_status": "not_present_in_R3.1_reviewed_fields"
+        },
+        "private_room": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "整间独享客房证据待实测；未知不能当true。",
+          "data_status": "not_verified_in_observed_samples"
+        },
+        "ensuite": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "房内独卫证据待实测；未知不能当true。",
+          "data_status": "not_verified_in_observed_samples"
+        },
+        "nightly_prices": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "逐夜费用待实测；均价不能证明每晚均满足预算。",
+          "data_status": "not_present_in_R3.1_reviewed_fields"
+        },
+        "stay_total_and_mandatory_fees": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "住宿总价、税费及必付费用完整性待实测；不能把部分价称为完整总价。",
+          "data_status": "not_present_in_R3.1_reviewed_fields"
+        },
+        "cancellation_policy": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "房型报价取消政策待实测；未知不等于免费取消。",
+          "data_status": "policy_text_observed; deadlines/timezone/terms_not_fully_audited"
+        },
+        "source_rating": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "仅使用明确的道旅住客评分和量表；星级、未知量表或其他来源不得混用4.5门槛。",
+          "data_status": "not_verified_in_observed_samples"
+        },
+        "identity_matching_fields": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "名称地址坐标与来源ID待核对；不凭同名或近坐标误合并。",
+          "data_status": "unknown"
+        },
+        "refresh_validity": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "刷新、失效及报价有效期待实测，不伪更新查询时间。",
+          "data_status": "unknown"
+        },
+        "handoff": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "消费者平台访问或官方搜索路径待验证，不拼造深链或预订状态。",
+          "data_status": "some_nondefault_child_room_URL_parameters_mismatch_requests"
+        },
+        "occupancy_echo": {
+          "state": "unverified",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "请求成功、方案变化或链接匹配都不能代替完整人数/年龄/房间回显。",
+          "data_status": "not_returned"
+        },
+        "booking_context_preserved": {
+          "state": "blocked",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 0,
+          "live_sample_count": 0,
+          "acceptance": "全部已支持入住组合原样链接必须保留同一酒店/日期/成人/儿童年龄/房间数。",
+          "data_status": "child_or_multiroom_mismatch_observed"
+        }
+      },
+      "next_user_actions": [
+        "Choose browser quote-first delivery or continue map/fare verification; do not disclose keys.",
+        "Keep missing room privacy, fee totals, rating scales and fare evidence explicit; do not claim full qualification."
+      ],
+      "verification_scope": "Personal local read-only API Key quote queries and display; no booking, final price lock, commercial redistribution or original full recommendation guarantee.",
+      "current_limitations": "R3.1: children/multiroom handoff may mismatch and is blocked per response; totals, nightly fees, inventory and occupancy remain unverified."
+    },
+    {
+      "id": "amap",
+      "name": "高德地图",
+      "category": "map",
+      "required_for_v1": false,
+      "status": "unverified",
+      "block_reason": "只读生产技术调用已通过；完整用途许可及夜间/资格/有效期等仍未核实，不能认定完整推荐门禁通过。",
+      "public_reviewed_at": "2026-10-15",
+      "evidence_document": "docs/project_notes.md",
+      "permissions": {
+        "application_subject": null,
+        "credentials_present": true,
+        "authorization_verified": null,
+        "consumer_use_allowed": null,
+        "display_allowed": null,
+        "comparison_allowed": null,
+        "cache_allowed": null,
+        "retention_policy": "实现仅在进程内保留本次地点选择最多120秒；不持久化坐标/路线/估价；商业缓存许可未核实。",
+        "coordinate_cross_use_allowed": null,
+        "rate_limit": null,
+        "cost_policy": null,
+        "personal_information_requirement": null,
+        "handoff_allowed": null,
+        "authorization_expires_at": null,
+        "approval_reference": null
+      },
+      "capabilities": {
+        "authorization": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "项目适用用途授权、额度和成功调用证据。"
+        },
+        "poi_search": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五家门店及至少两页结果，记录检索覆盖。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "nearby_search": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五组门店周边住宿地点；不等同库存。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "poi_detail": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五条详情可对应门店身份。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "coordinates": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五个坐标核验顺序、坐标系和精度。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "walking_route": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五条餐厅到住宿实际步行路径与单位。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "subway_entrance_route": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "三组住宿到地铁入口路径，标起终点精度。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "opening_hours_evidence": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五家核对跨午夜营业证据，未知不可主推。"
+        }
+      },
+      "next_user_actions": [
+        "高德迎商样本网页路线已按用户确认验收；其他住宿仍逐次核对，不能扩展为全局别名。",
+        "商业展示/再分发/缓存或完整推荐另核验，不以已配置Key替代。"
+      ],
+      "sampling_dimensions": {
+        "minimum_branch_to_property_routes": 3,
+        "minimum_subway_entrance_routes": 3,
+        "verify_pagination_and_truncation": true
+      },
+      "technical_observations": {
+        "authenticated_read_only_call": true,
+        "local_reference_ui_implemented": true,
+        "commercial_permission_verified": false,
+        "full_recommendation_verified": false,
+        "evidence": "docs/project_notes.md",
+        "live_web_route_verified": true,
+        "live_web_refresh_verified": true,
+        "hotel_match_basis": "user_confirmed"
+      }
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯地图",
+      "category": "map",
+      "required_for_v1": false,
+      "status": "unverified",
+      "block_reason": "只读生产技术调用已通过；完整用途许可及夜间/资格/有效期等仍未核实，不能认定完整推荐门禁通过。",
+      "public_reviewed_at": "2026-10-15",
+      "evidence_document": "docs/project_notes.md",
+      "permissions": {
+        "application_subject": null,
+        "credentials_present": true,
+        "authorization_verified": null,
+        "consumer_use_allowed": null,
+        "display_allowed": null,
+        "comparison_allowed": null,
+        "cache_allowed": null,
+        "retention_policy": "实现仅在进程内保留本次地点选择最多120秒；不持久化坐标/路线/估价；商业缓存许可未核实。",
+        "coordinate_cross_use_allowed": null,
+        "rate_limit": null,
+        "cost_policy": null,
+        "personal_information_requirement": null,
+        "handoff_allowed": null,
+        "authorization_expires_at": null,
+        "approval_reference": null
+      },
+      "capabilities": {
+        "authorization": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "项目适用用途授权、额度和成功调用证据。"
+        },
+        "poi_search": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五家门店及至少两页结果，记录检索覆盖。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "nearby_search": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五组门店周边住宿地点；不等同库存。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "poi_detail": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五条详情可对应门店身份。"
+        },
+        "coordinates": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五个坐标核验顺序、坐标系和精度。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "walking_route": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五条餐厅到住宿实际步行路径与单位。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "subway_entrance_route": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "三组住宿到地铁入口路径，标起终点精度。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "opening_hours_evidence": {
+          "state": "blocked",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五家核对跨午夜营业证据，未知不可主推。"
+        }
+      },
+      "next_user_actions": [
+        "该来源迎商样本网页出行参考已按用户确认验收；其他住宿仍逐次核对，不扩为通用别名。",
+        "商业展示/再分发/缓存或完整推荐另核验，不以已配置Key替代。"
+      ],
+      "sampling_dimensions": {
+        "minimum_branch_to_property_routes": 3,
+        "minimum_subway_entrance_routes": 3,
+        "verify_pagination_and_truncation": true
+      },
+      "technical_observations": {
+        "authenticated_read_only_call": true,
+        "local_reference_ui_implemented": true,
+        "commercial_permission_verified": false,
+        "full_recommendation_verified": false,
+        "evidence": "docs/project_notes.md",
+        "live_web_route_verified": true,
+        "live_web_refresh_verified": true,
+        "hotel_match_basis": "user_confirmed",
+        "live_web_evidence": "docs/project_notes.md"
+      }
+    },
+    {
+      "id": "ctrip",
+      "name": "携程国内住宿",
+      "category": "hotels",
+      "required_for_v1": false,
+      "status": "blocked",
+      "block_reason": "项目适用权限与真实样本尚未提供；本轮未检查本地凭据。",
+      "public_reviewed_at": "2026-10-15",
+      "evidence_document": "docs/project_notes.md",
+      "permissions": {
+        "application_subject": null,
+        "credentials_present": null,
+        "authorization_verified": null,
+        "consumer_use_allowed": null,
+        "display_allowed": null,
+        "comparison_allowed": null,
+        "cache_allowed": null,
+        "retention_policy": null,
+        "coordinate_cross_use_allowed": null,
+        "rate_limit": null,
+        "cost_policy": null,
+        "personal_information_requirement": null,
+        "handoff_allowed": null,
+        "authorization_expires_at": null,
+        "approval_reference": null
+      },
+      "capabilities": {
+        "authorization": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "国内查询展示与跨平台比较用途授权。"
+        },
+        "domestic_listing_search": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "国内城市区域住宿检索与分页。"
+        },
+        "stay_quote_dates_guests_rooms": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "至少三组不同日期人数条件，绑定房数和儿童规则。"
+        },
+        "overnight_availability": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价证明过夜和连续住期。"
+        },
+        "sufficient_inventory": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价核对足量房数库存。"
+        },
+        "private_room": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价有独享整间证据。"
+        },
+        "ensuite": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价有房内独卫证据。"
+        },
+        "nightly_prices": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条逐夜明细，含多晚；均价不证明每晚达标。"
+        },
+        "stay_total_and_mandatory_fees": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条整单费用与必付费用以整数分核对。"
+        },
+        "cancellation_policy": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条取消规则；免费取消缺证据不可放行。"
+        },
+        "identity_matching_fields": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五家跨源核对门店身份，同名异店不合并。"
+        },
+        "refresh_validity": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价时间和失效条件。"
+        },
+        "handoff": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "三例官方链接或可核对的平台搜索交接。"
+        },
+        "ctrip_rating": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条携程评分与同店身份可核对。"
+        }
+      },
+      "next_user_actions": [
+        "用户申请适用主体与国内合作产品，取得当前用途和字段文档。",
+        "获准后完成三组日期人数条件与十条报价及五家同店核验。"
+      ],
+      "sampling_dimensions": {
+        "minimum_distinct_properties": 3,
+        "minimum_stay_date_contexts": 2,
+        "vary_guests_and_rooms": true
+      },
+      "profile_note": "保留历史能力与阻断；本active profile不使用或宣称接通该来源。"
+    },
+    {
+      "id": "meituan",
+      "name": "美团住宿",
+      "category": "hotels",
+      "required_for_v1": false,
+      "status": "blocked",
+      "block_reason": "项目适用权限与真实样本尚未提供；本轮未检查本地凭据。",
+      "public_reviewed_at": "2026-10-15",
+      "evidence_document": "docs/project_notes.md",
+      "permissions": {
+        "application_subject": null,
+        "credentials_present": null,
+        "authorization_verified": null,
+        "consumer_use_allowed": null,
+        "display_allowed": null,
+        "comparison_allowed": null,
+        "cache_allowed": null,
+        "retention_policy": null,
+        "coordinate_cross_use_allowed": null,
+        "rate_limit": null,
+        "cost_policy": null,
+        "personal_information_requirement": null,
+        "handoff_allowed": null,
+        "authorization_expires_at": null,
+        "approval_reference": null
+      },
+      "capabilities": {
+        "authorization": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "国内查询展示与跨平台比较用途授权。"
+        },
+        "domestic_listing_search": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "国内城市区域住宿检索与分页。"
+        },
+        "stay_quote_dates_guests_rooms": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "至少三组不同日期人数条件，绑定房数和儿童规则。"
+        },
+        "overnight_availability": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价证明过夜和连续住期。"
+        },
+        "sufficient_inventory": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价核对足量房数库存。"
+        },
+        "private_room": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价有独享整间证据。"
+        },
+        "ensuite": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价有房内独卫证据。"
+        },
+        "nightly_prices": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条逐夜明细，含多晚；均价不证明每晚达标。"
+        },
+        "stay_total_and_mandatory_fees": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条整单费用与必付费用以整数分核对。"
+        },
+        "cancellation_policy": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条取消规则；免费取消缺证据不可放行。"
+        },
+        "identity_matching_fields": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "五家跨源核对门店身份，同名异店不合并。"
+        },
+        "refresh_validity": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "十条报价时间和失效条件。"
+        },
+        "handoff": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "三例官方链接或可核对的平台搜索交接。"
+        },
+        "source_rating": {
+          "state": "blocked",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "如有美团评分保留来源，不能替代携程评分。"
+        }
+      },
+      "next_user_actions": [
+        "用户申请适用主体与国内合作产品，取得当前用途和字段文档。",
+        "获准后完成三组日期人数条件与十条报价及五家同店核验。"
+      ],
+      "sampling_dimensions": {
+        "minimum_distinct_properties": 3,
+        "minimum_stay_date_contexts": 2,
+        "vary_guests_and_rooms": true
+      },
+      "profile_note": "保留历史能力与阻断；本active profile不使用或宣称接通该来源。"
+    },
+    {
+      "id": "didi",
+      "name": "滴滴估价",
+      "category": "fare",
+      "required_for_v1": false,
+      "status": "unverified",
+      "block_reason": "只读生产技术调用已通过；完整用途许可及夜间/资格/有效期等仍未核实，不能认定完整推荐门禁通过。",
+      "public_reviewed_at": "2026-10-15",
+      "evidence_document": "docs/project_notes.md",
+      "permissions": {
+        "application_subject": null,
+        "credentials_present": true,
+        "authorization_verified": null,
+        "consumer_use_allowed": null,
+        "display_allowed": null,
+        "comparison_allowed": null,
+        "cache_allowed": null,
+        "retention_policy": "实现仅在进程内保留本次地点选择最多120秒；不持久化坐标/路线/估价；商业缓存许可未核实。",
+        "coordinate_cross_use_allowed": null,
+        "rate_limit": null,
+        "cost_policy": null,
+        "personal_information_requirement": null,
+        "handoff_allowed": null,
+        "authorization_expires_at": null,
+        "approval_reference": null
+      },
+      "capabilities": {
+        "authorization": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "验证个人MCP项目Key适用本产品只读估价用途，取得真实调用及授权证据。"
+        },
+        "consumer_scope_no_phone": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 1,
+          "live_sample_count": 0,
+          "acceptance": "以个人MCP实际协议验证不新增手机号采集的估价路径；不以旧企业接口要求推断永远不可用。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "fare_estimate": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "通过获准个人MCP taxi_estimate核验三组不同起终点；不创建订单或实际叫车。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "standard_product_eligibility": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "三组车型资格与容量，非专享价默认放行。"
+        },
+        "amount_and_currency": {
+          "state": "unverified",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "三组CNY单位与区间上界核对。",
+          "observed_technical_status": "verified",
+          "remaining_review": "技术样本/单位转换已取得；完整验收量、用途许可与实际入口/夜间资格须按接受条件另审。"
+        },
+        "time_scope_validity": {
+          "state": "blocked",
+          "required": true,
+          "public_documented": true,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "三组查询适用失效时间，含跨午夜上下文。"
+        },
+        "future_time_estimate": {
+          "state": "blocked",
+          "required": false,
+          "public_documented": false,
+          "evidence_refs": [
+            "docs/project_notes.md",
+            "docs/project_notes.md"
+          ],
+          "live_evidence_refs": [],
+          "minimum_live_samples": 3,
+          "live_sample_count": 0,
+          "acceptance": "如有未来时段能力核验范围；当前参考价可据实使用。"
+        }
+      },
+      "next_user_actions": [
+        "该来源迎商样本网页出行参考已按用户确认验收；其他住宿仍逐次核对，不扩为通用别名。",
+        "商业展示/再分发/缓存或完整推荐另核验，不以已配置Key替代。"
+      ],
+      "integration_route": "personal_mcp",
+      "probe_tool": "taxi_estimate",
+      "technical_observations": {
+        "authenticated_read_only_call": true,
+        "local_reference_ui_implemented": true,
+        "commercial_permission_verified": false,
+        "full_recommendation_verified": false,
+        "evidence": "docs/project_notes.md",
+        "live_web_route_verified": true,
+        "live_web_refresh_verified": true,
+        "hotel_match_basis": "user_confirmed",
+        "live_web_evidence": "docs/project_notes.md"
+      }
+    }
+  ],
+  "sampling_scope": "道旅必要能力各至少1条首轮技术样本；地图/估价沿已登记最低量。技术样本不等于发布验收，独卫/逐夜/总价/评分等未知数据不自动满足推荐条件，完整真实发布另审。",
+  "g2_acceptance_targets": {
+    "minimum_quotes_per_hotel_provider": 10,
+    "minimum_restaurant_branches": 5,
+    "minimum_guangzhou_date_guest_context_groups": 3
+  },
+  "profile": "rollinggo_price_v1",
+  "release_gate_note": "rollinggo_price_v1仅审计本机报价浏览。完整推荐、地图/车费/双模型与G2独立验收；未知条件不变为满足。",
+  "travel_reference_supplement": {
+    "implemented_at": "2026-10-17",
+    "scope": "per-hotel read-only location and current return reference",
+    "required_sources": [
+      "rollinggo",
+      "amap",
+      "tencent",
+      "didi"
+    ],
+    "evidence": "docs/project_notes.md",
+    "live_web_places_passed": true,
+    "live_web_routes_passed": true,
+    "full_maps_gate_passed": false,
+    "live_web_route_providers": [
+      "amap",
+      "tencent",
+      "didi"
+    ],
+    "live_web_uncovered_route_providers": [],
+    "live_web_route_evidence": "docs/project_notes.md",
+    "identity_basis": "explicit_human_confirmation_for_each_sample_only",
+    "live_web_route_evidence_refs": [
+      "docs/project_notes.md",
+      "docs/project_notes.md"
+    ]
+  }
+}

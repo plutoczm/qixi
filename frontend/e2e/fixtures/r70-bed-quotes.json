@@ -1,0 +1,728 @@
+{
+  "request_id": "r68-offline-sample",
+  "hotel_id": 71,
+  "hotel_name": "广州示例酒店（离线样本）",
+  "status": "complete",
+  "context": {
+    "place": "广州",
+    "place_type": "城市",
+    "check_in": "2026-11-13",
+    "check_out": "2026-11-14",
+    "adults": 2,
+    "rooms": 1,
+    "children_ages": [],
+    "budget_fen": 20000,
+    "limit": 20,
+    "poi_name": null,
+    "accepts_dormitory": true
+  },
+  "queried_at": "2026-11-07T04:20:00.123456+00:00",
+  "source": {
+    "id": "tuniu",
+    "name": "途牛"
+  },
+  "data_mode": "test",
+  "booking_url": null,
+  "booking_status": "unavailable",
+  "occupancy_status": "unverified",
+  "booking_context_issues": [],
+  "occupancy_context_issues": [],
+  "bookability": {
+    "ready": false,
+    "items": [
+      {
+        "field": "inventory_quantity",
+        "label": "足量库存",
+        "status": "verified",
+        "note": "来源自称剩余房量，需不少于本次房数；不等于锁价。"
+      },
+      {
+        "field": "deposit_and_mandatory_fees",
+        "label": "押金与到店必付",
+        "status": "blocked",
+        "note": "可订层只接受已核实字段；该项未核实或来源不提供，因此阻断。"
+      },
+      {
+        "field": "occupancy_echo",
+        "label": "入住组合回显",
+        "status": "blocked",
+        "note": "可订层只接受已核实字段；该项未核实或来源不提供，因此阻断。"
+      },
+      {
+        "field": "safe_booking_link",
+        "label": "来源预订链接",
+        "status": "blocked",
+        "note": "可订层只接受已核实字段；该项未核实或来源不提供，因此阻断。"
+      }
+    ]
+  },
+  "qualified_lowest_id": "q0",
+  "quotes": [
+    {
+      "id": "q0",
+      "room_name": "青旅四人床位房",
+      "plan_name": "标准床位 · 不可取消",
+      "amount_fen": 6000,
+      "currency": "CNY",
+      "price_basis": "supplier_reference",
+      "source_inventory_observed": 4,
+      "bed_type": null,
+      "meal": null,
+      "cancellation": {
+        "text": "不可取消",
+        "can_cancel": null
+      },
+      "on_request": null,
+      "max_occupancy": 2,
+      "room_size_sqm": null,
+      "unverified": [
+        "整间客房与房内独卫按国内默认推定，未取得来源字段",
+        "到店另付未核实（押金／必付费用无报价级字段）"
+      ],
+      "reference": {
+        "ready": true,
+        "items": [
+          {
+            "field": "room_exclusivity",
+            "label": "整间客房独享",
+            "status": "accepted",
+            "note": "房型标注“床位”；你已明确接受床位，本项不作为阻断（接受床位同时视为接受这类房型常见的共享卫浴）。"
+          },
+          {
+            "field": "private_bathroom",
+            "label": "房内独立卫浴",
+            "status": "accepted",
+            "note": "房型标注“床位”；你已明确接受床位，本项不作为阻断（接受床位同时视为接受这类房型常见的共享卫浴）。"
+          },
+          {
+            "field": "inventory_quantity",
+            "label": "足量库存",
+            "status": "verified",
+            "note": "来源剩余 4 间 ≥ 本次 1 间；仅代表该次查询日期的快照。"
+          },
+          {
+            "field": "price_includes_tax",
+            "label": "展示价含税",
+            "status": "presumed",
+            "note": "境内展示价按已含税费与服务费处理（用户 2026-11-05 确认）。"
+          },
+          {
+            "field": "deposit_and_mandatory_fees",
+            "label": "押金与到店必付",
+            "status": "unknown",
+            "note": "到店押金／附加费未核实，不并入参考价，页面须标注“到店另付未核实”。"
+          },
+          {
+            "field": "occupancy_echo",
+            "label": "入住组合回显",
+            "status": "presumed",
+            "note": "入住组合未回显：按本次请求（2 成人／1 房）＋来源剩余 4 间＋观察时间 2026-11-07T04:20:00.123456+00:00 推定，非来源确认，不是可订承诺。"
+          },
+          {
+            "field": "safe_booking_link",
+            "label": "来源预订链接",
+            "status": "unknown",
+            "note": "无来源原样链接，卡片不提供跳转，需自行前往来源核对。"
+          }
+        ]
+      },
+      "qualification": {
+        "tier": "qualified",
+        "conditions": [
+          {
+            "condition": "room_form",
+            "label": "整间客房",
+            "verdict": "pass",
+            "basis": "user_accepted_bed:床位",
+            "detail": "房型标注“床位”，你已明确接受床位，不再按整间过夜客房要求。",
+            "presumed": false,
+            "accepted": true
+          },
+          {
+            "condition": "private_bathroom",
+            "label": "房内独立卫浴",
+            "verdict": "pass",
+            "basis": "user_accepted_shared_bathroom:床位",
+            "detail": "房型标注“床位”；你接受床位即同时接受这类房型常见的共享卫浴。",
+            "presumed": false,
+            "accepted": true
+          },
+          {
+            "condition": "inventory",
+            "label": "足量库存",
+            "verdict": "pass",
+            "basis": "official_remaining_stock_count",
+            "detail": "来源剩余 4 间 ≥ 本次 1 间；仅代表该次查询日期的快照。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "occupancy_capacity",
+            "label": "房型可住人数",
+            "verdict": "pass",
+            "basis": "official_max_occupancy",
+            "detail": "来源房型可住 2 人 ≥ 本次每房 2 人。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "guest_score",
+            "label": "住客评分",
+            "verdict": "pass",
+            "basis": "r04_threshold_not_enabled_when_absent",
+            "detail": "未取得住客评分：按 R04 不启用该评分门槛（星级不充当住客评分）。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "cancellation",
+            "label": "取消规则",
+            "verdict": "pass",
+            "basis": "free_cancel_not_required",
+            "detail": "本次不要求免费取消；来源条款：不可取消。",
+            "presumed": false,
+            "accepted": false
+          }
+        ],
+        "fees": {
+          "nights": 1,
+          "rooms": 1,
+          "room_charge_fen": 12000,
+          "mandatory_fees_fen": 0,
+          "deposit_fen": null,
+          "deposit_refundable": null,
+          "discount_fen": null,
+          "discount_applied_fen": 0,
+          "total_known_fen": 12000,
+          "per_room_night_fen": 12000,
+          "tax_basis": "domestic_default_tax_included",
+          "unknown_items": [],
+          "lines": [
+            {
+              "kind": "room_charge",
+              "label": "房费",
+              "amount_fen": 6000,
+              "per": "person_night",
+              "total_fen": 12000,
+              "counted": true,
+              "note": "你已接受床位：按 6000 分 × 1 晚 × 2 人（床）推定为整住期金额；若来源本意是整间价，此值偏高。"
+            }
+          ],
+          "notes": [
+            "你已接受床位：按 6000 分 × 1 晚 × 2 人（床）推定为整住期金额；若来源本意是整间价，此值偏高。",
+            "来源未注明是否含税：按境内展示价含税口径推定，不另加；该口径不是来源确认。"
+          ]
+        },
+        "budget": {
+          "verdict": "pass",
+          "basis": "single_night_known_costs",
+          "detail": "单晚已知费用 12000 分/间 ≤ 预算 20000 分。",
+          "budget_fen": 20000,
+          "compared_fen": 12000
+        },
+        "reasons": []
+      }
+    },
+    {
+      "id": "q1",
+      "room_name": "独卫大床房",
+      "plan_name": "含双早 · 免费取消",
+      "amount_fen": 18900,
+      "currency": "CNY",
+      "price_basis": "supplier_reference",
+      "source_inventory_observed": 3,
+      "bed_type": null,
+      "meal": null,
+      "cancellation": {
+        "text": "入住前1天可免费取消",
+        "can_cancel": null
+      },
+      "on_request": null,
+      "max_occupancy": 2,
+      "room_size_sqm": null,
+      "unverified": [
+        "整间客房与房内独卫按国内默认推定，未取得来源字段",
+        "到店另付未核实（押金／必付费用无报价级字段）"
+      ],
+      "reference": {
+        "ready": true,
+        "items": [
+          {
+            "field": "room_exclusivity",
+            "label": "整间客房独享",
+            "status": "presumed",
+            "note": "按整间过夜客房处理（未见床位或多人间标记）。"
+          },
+          {
+            "field": "private_bathroom",
+            "label": "房内独立卫浴",
+            "status": "presumed",
+            "note": "未取得来源独卫字段；按国内默认推定为房内独卫（未见公共卫浴或床位标记）。"
+          },
+          {
+            "field": "inventory_quantity",
+            "label": "足量库存",
+            "status": "verified",
+            "note": "来源剩余 3 间 ≥ 本次 1 间；仅代表该次查询日期的快照。"
+          },
+          {
+            "field": "price_includes_tax",
+            "label": "展示价含税",
+            "status": "presumed",
+            "note": "境内展示价按已含税费与服务费处理（用户 2026-11-05 确认）。"
+          },
+          {
+            "field": "deposit_and_mandatory_fees",
+            "label": "押金与到店必付",
+            "status": "unknown",
+            "note": "到店押金／附加费未核实，不并入参考价，页面须标注“到店另付未核实”。"
+          },
+          {
+            "field": "occupancy_echo",
+            "label": "入住组合回显",
+            "status": "presumed",
+            "note": "入住组合未回显：按本次请求（2 成人／1 房）＋来源剩余 3 间＋观察时间 2026-11-07T04:20:00.123456+00:00 推定，非来源确认，不是可订承诺。"
+          },
+          {
+            "field": "safe_booking_link",
+            "label": "来源预订链接",
+            "status": "unknown",
+            "note": "无来源原样链接，卡片不提供跳转，需自行前往来源核对。"
+          }
+        ]
+      },
+      "qualification": {
+        "tier": "qualified",
+        "conditions": [
+          {
+            "condition": "room_form",
+            "label": "整间客房",
+            "verdict": "pass",
+            "basis": "domestic_default_whole_room",
+            "detail": "按整间过夜客房处理（未见床位或多人间标记）。",
+            "presumed": true,
+            "accepted": false
+          },
+          {
+            "condition": "private_bathroom",
+            "label": "房内独立卫浴",
+            "verdict": "pass",
+            "basis": "domestic_default_private_bathroom",
+            "detail": "未取得来源独卫字段；按国内默认推定为房内独卫（未见公共卫浴或床位标记）。",
+            "presumed": true,
+            "accepted": false
+          },
+          {
+            "condition": "inventory",
+            "label": "足量库存",
+            "verdict": "pass",
+            "basis": "official_remaining_stock_count",
+            "detail": "来源剩余 3 间 ≥ 本次 1 间；仅代表该次查询日期的快照。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "occupancy_capacity",
+            "label": "房型可住人数",
+            "verdict": "pass",
+            "basis": "official_max_occupancy",
+            "detail": "来源房型可住 2 人 ≥ 本次每房 2 人。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "guest_score",
+            "label": "住客评分",
+            "verdict": "pass",
+            "basis": "r04_threshold_not_enabled_when_absent",
+            "detail": "未取得住客评分：按 R04 不启用该评分门槛（星级不充当住客评分）。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "cancellation",
+            "label": "取消规则",
+            "verdict": "pass",
+            "basis": "free_cancel_not_required",
+            "detail": "本次不要求免费取消；来源条款：入住前1天可免费取消。",
+            "presumed": false,
+            "accepted": false
+          }
+        ],
+        "fees": {
+          "nights": 1,
+          "rooms": 1,
+          "room_charge_fen": 18900,
+          "mandatory_fees_fen": 0,
+          "deposit_fen": null,
+          "deposit_refundable": null,
+          "discount_fen": null,
+          "discount_applied_fen": 0,
+          "total_known_fen": 18900,
+          "per_room_night_fen": 18900,
+          "tax_basis": "domestic_default_tax_included",
+          "unknown_items": [],
+          "lines": [
+            {
+              "kind": "room_charge",
+              "label": "房费",
+              "amount_fen": 18900,
+              "per": "room_night",
+              "total_fen": 18900,
+              "counted": true,
+              "note": "来源未注明计价单位：按 18900 分 × 1 晚 × 1 间推定整住期金额；若来源为整单价，此值偏高。"
+            }
+          ],
+          "notes": [
+            "来源未注明计价单位：按 18900 分 × 1 晚 × 1 间推定整住期金额；若来源为整单价，此值偏高。",
+            "来源未注明是否含税：按境内展示价含税口径推定，不另加；该口径不是来源确认。"
+          ]
+        },
+        "budget": {
+          "verdict": "pass",
+          "basis": "single_night_known_costs",
+          "detail": "单晚已知费用 18900 分/间 ≤ 预算 20000 分。",
+          "budget_fen": 20000,
+          "compared_fen": 18900
+        },
+        "reasons": []
+      }
+    },
+    {
+      "id": "q2",
+      "room_name": "独卫双床房",
+      "plan_name": "无早 · 不可取消",
+      "amount_fen": 16900,
+      "currency": "CNY",
+      "price_basis": "supplier_reference",
+      "source_inventory_observed": 3,
+      "bed_type": null,
+      "meal": null,
+      "cancellation": {
+        "text": "预订后不可取消",
+        "can_cancel": null
+      },
+      "on_request": null,
+      "max_occupancy": 2,
+      "room_size_sqm": null,
+      "unverified": [
+        "整间客房与房内独卫按国内默认推定，未取得来源字段",
+        "到店另付未核实（押金／必付费用无报价级字段）"
+      ],
+      "reference": {
+        "ready": true,
+        "items": [
+          {
+            "field": "room_exclusivity",
+            "label": "整间客房独享",
+            "status": "presumed",
+            "note": "按整间过夜客房处理（未见床位或多人间标记）。"
+          },
+          {
+            "field": "private_bathroom",
+            "label": "房内独立卫浴",
+            "status": "presumed",
+            "note": "未取得来源独卫字段；按国内默认推定为房内独卫（未见公共卫浴或床位标记）。"
+          },
+          {
+            "field": "inventory_quantity",
+            "label": "足量库存",
+            "status": "verified",
+            "note": "来源剩余 3 间 ≥ 本次 1 间；仅代表该次查询日期的快照。"
+          },
+          {
+            "field": "price_includes_tax",
+            "label": "展示价含税",
+            "status": "presumed",
+            "note": "境内展示价按已含税费与服务费处理（用户 2026-11-05 确认）。"
+          },
+          {
+            "field": "deposit_and_mandatory_fees",
+            "label": "押金与到店必付",
+            "status": "unknown",
+            "note": "到店押金／附加费未核实，不并入参考价，页面须标注“到店另付未核实”。"
+          },
+          {
+            "field": "occupancy_echo",
+            "label": "入住组合回显",
+            "status": "presumed",
+            "note": "入住组合未回显：按本次请求（2 成人／1 房）＋来源剩余 3 间＋观察时间 2026-11-07T04:20:00.123456+00:00 推定，非来源确认，不是可订承诺。"
+          },
+          {
+            "field": "safe_booking_link",
+            "label": "来源预订链接",
+            "status": "unknown",
+            "note": "无来源原样链接，卡片不提供跳转，需自行前往来源核对。"
+          }
+        ]
+      },
+      "qualification": {
+        "tier": "qualified",
+        "conditions": [
+          {
+            "condition": "room_form",
+            "label": "整间客房",
+            "verdict": "pass",
+            "basis": "domestic_default_whole_room",
+            "detail": "按整间过夜客房处理（未见床位或多人间标记）。",
+            "presumed": true,
+            "accepted": false
+          },
+          {
+            "condition": "private_bathroom",
+            "label": "房内独立卫浴",
+            "verdict": "pass",
+            "basis": "domestic_default_private_bathroom",
+            "detail": "未取得来源独卫字段；按国内默认推定为房内独卫（未见公共卫浴或床位标记）。",
+            "presumed": true,
+            "accepted": false
+          },
+          {
+            "condition": "inventory",
+            "label": "足量库存",
+            "verdict": "pass",
+            "basis": "official_remaining_stock_count",
+            "detail": "来源剩余 3 间 ≥ 本次 1 间；仅代表该次查询日期的快照。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "occupancy_capacity",
+            "label": "房型可住人数",
+            "verdict": "pass",
+            "basis": "official_max_occupancy",
+            "detail": "来源房型可住 2 人 ≥ 本次每房 2 人。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "guest_score",
+            "label": "住客评分",
+            "verdict": "pass",
+            "basis": "r04_threshold_not_enabled_when_absent",
+            "detail": "未取得住客评分：按 R04 不启用该评分门槛（星级不充当住客评分）。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "cancellation",
+            "label": "取消规则",
+            "verdict": "pass",
+            "basis": "free_cancel_not_required",
+            "detail": "本次不要求免费取消；来源条款：预订后不可取消。",
+            "presumed": false,
+            "accepted": false
+          }
+        ],
+        "fees": {
+          "nights": 1,
+          "rooms": 1,
+          "room_charge_fen": 16900,
+          "mandatory_fees_fen": 0,
+          "deposit_fen": null,
+          "deposit_refundable": null,
+          "discount_fen": null,
+          "discount_applied_fen": 0,
+          "total_known_fen": 16900,
+          "per_room_night_fen": 16900,
+          "tax_basis": "domestic_default_tax_included",
+          "unknown_items": [],
+          "lines": [
+            {
+              "kind": "room_charge",
+              "label": "房费",
+              "amount_fen": 16900,
+              "per": "room_night",
+              "total_fen": 16900,
+              "counted": true,
+              "note": "来源未注明计价单位：按 16900 分 × 1 晚 × 1 间推定整住期金额；若来源为整单价，此值偏高。"
+            }
+          ],
+          "notes": [
+            "来源未注明计价单位：按 16900 分 × 1 晚 × 1 间推定整住期金额；若来源为整单价，此值偏高。",
+            "来源未注明是否含税：按境内展示价含税口径推定，不另加；该口径不是来源确认。"
+          ]
+        },
+        "budget": {
+          "verdict": "pass",
+          "basis": "single_night_known_costs",
+          "detail": "单晚已知费用 16900 分/间 ≤ 预算 20000 分。",
+          "budget_fen": 20000,
+          "compared_fen": 16900
+        },
+        "reasons": []
+      }
+    },
+    {
+      "id": "q3",
+      "room_name": "标准间（公共卫浴）",
+      "plan_name": "无早 · 不可取消",
+      "amount_fen": 13900,
+      "currency": "CNY",
+      "price_basis": "supplier_reference",
+      "source_inventory_observed": 2,
+      "bed_type": null,
+      "meal": null,
+      "cancellation": {
+        "text": "预订后不可取消",
+        "can_cancel": null
+      },
+      "on_request": null,
+      "max_occupancy": 2,
+      "room_size_sqm": null,
+      "unverified": [
+        "整间客房与房内独卫按国内默认推定，未取得来源字段",
+        "到店另付未核实（押金／必付费用无报价级字段）"
+      ],
+      "reference": {
+        "ready": false,
+        "items": [
+          {
+            "field": "room_exclusivity",
+            "label": "整间客房独享",
+            "status": "presumed",
+            "note": "按整间过夜客房处理（未见床位或多人间标记）。"
+          },
+          {
+            "field": "private_bathroom",
+            "label": "房内独立卫浴",
+            "status": "blocked",
+            "note": "房型标注“公共卫浴”，不按房内独卫处理。"
+          },
+          {
+            "field": "inventory_quantity",
+            "label": "足量库存",
+            "status": "verified",
+            "note": "来源剩余 2 间 ≥ 本次 1 间；仅代表该次查询日期的快照。"
+          },
+          {
+            "field": "price_includes_tax",
+            "label": "展示价含税",
+            "status": "presumed",
+            "note": "境内展示价按已含税费与服务费处理（用户 2026-11-05 确认）。"
+          },
+          {
+            "field": "deposit_and_mandatory_fees",
+            "label": "押金与到店必付",
+            "status": "unknown",
+            "note": "到店押金／附加费未核实，不并入参考价，页面须标注“到店另付未核实”。"
+          },
+          {
+            "field": "occupancy_echo",
+            "label": "入住组合回显",
+            "status": "presumed",
+            "note": "入住组合未回显：按本次请求（2 成人／1 房）＋来源剩余 2 间＋观察时间 2026-11-07T04:20:00.123456+00:00 推定，非来源确认，不是可订承诺。"
+          },
+          {
+            "field": "safe_booking_link",
+            "label": "来源预订链接",
+            "status": "unknown",
+            "note": "无来源原样链接，卡片不提供跳转，需自行前往来源核对。"
+          }
+        ]
+      },
+      "qualification": {
+        "tier": "excluded",
+        "conditions": [
+          {
+            "condition": "room_form",
+            "label": "整间客房",
+            "verdict": "pass",
+            "basis": "domestic_default_whole_room",
+            "detail": "按整间过夜客房处理（未见床位或多人间标记）。",
+            "presumed": true,
+            "accepted": false
+          },
+          {
+            "condition": "private_bathroom",
+            "label": "房内独立卫浴",
+            "verdict": "fail",
+            "basis": "explicit_shared_marker:公共卫浴",
+            "detail": "房型标注“公共卫浴”，不按房内独卫处理。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "inventory",
+            "label": "足量库存",
+            "verdict": "pass",
+            "basis": "official_remaining_stock_count",
+            "detail": "来源剩余 2 间 ≥ 本次 1 间；仅代表该次查询日期的快照。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "occupancy_capacity",
+            "label": "房型可住人数",
+            "verdict": "pass",
+            "basis": "official_max_occupancy",
+            "detail": "来源房型可住 2 人 ≥ 本次每房 2 人。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "guest_score",
+            "label": "住客评分",
+            "verdict": "pass",
+            "basis": "r04_threshold_not_enabled_when_absent",
+            "detail": "未取得住客评分：按 R04 不启用该评分门槛（星级不充当住客评分）。",
+            "presumed": false,
+            "accepted": false
+          },
+          {
+            "condition": "cancellation",
+            "label": "取消规则",
+            "verdict": "pass",
+            "basis": "free_cancel_not_required",
+            "detail": "本次不要求免费取消；来源条款：预订后不可取消。",
+            "presumed": false,
+            "accepted": false
+          }
+        ],
+        "fees": {
+          "nights": 1,
+          "rooms": 1,
+          "room_charge_fen": 13900,
+          "mandatory_fees_fen": 0,
+          "deposit_fen": null,
+          "deposit_refundable": null,
+          "discount_fen": null,
+          "discount_applied_fen": 0,
+          "total_known_fen": 13900,
+          "per_room_night_fen": 13900,
+          "tax_basis": "domestic_default_tax_included",
+          "unknown_items": [],
+          "lines": [
+            {
+              "kind": "room_charge",
+              "label": "房费",
+              "amount_fen": 13900,
+              "per": "room_night",
+              "total_fen": 13900,
+              "counted": true,
+              "note": "来源未注明计价单位：按 13900 分 × 1 晚 × 1 间推定整住期金额；若来源为整单价，此值偏高。"
+            }
+          ],
+          "notes": [
+            "来源未注明计价单位：按 13900 分 × 1 晚 × 1 间推定整住期金额；若来源为整单价，此值偏高。",
+            "来源未注明是否含税：按境内展示价含税口径推定，不另加；该口径不是来源确认。"
+          ]
+        },
+        "budget": {
+          "verdict": "pass",
+          "basis": "single_night_known_costs",
+          "detail": "单晚已知费用 13900 分/间 ≤ 预算 20000 分。",
+          "budget_fen": 20000,
+          "compared_fen": 13900
+        },
+        "reasons": [
+          "房内独立卫浴：房型标注“公共卫浴”，不按房内独卫处理。"
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    "以上为参考价（非可订实付价）：整间独卫按国内默认推定，入住组合按请求参数推定，到店另付未核实，且不提供来源跳转。"
+  ],
+  "error": null
+}

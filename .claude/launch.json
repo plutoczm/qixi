@@ -1,0 +1,35 @@
+{
+  "version": "0.0.2",
+  "configurations": [
+    {
+      "name": "xunqi-live",
+      "runtimeExecutable": "D:/Anaconda3/envs/xunqi/python.exe",
+      "runtimeArgs": ["scripts/dev.py", "--port", "8011"],
+      "port": 8011
+    },
+    {
+      "name": "xunqi-live-tuniu",
+      "runtimeExecutable": "D:/Anaconda3/envs/xunqi/python.exe",
+      "runtimeArgs": ["scripts/dev.py", "--port", "8012", "--hotel-source", "tuniu"],
+      "port": 8012
+    },
+    {
+      "name": "xunqi-offline-demo",
+      "runtimeExecutable": "D:/Anaconda3/envs/xunqi/python.exe",
+      "runtimeArgs": ["scripts/dev.py", "--port", "8013", "--demo"],
+      "port": 8013
+    },
+    {
+      "name": "xunqi-p9-state",
+      "runtimeExecutable": "D:/Anaconda3/envs/xunqi/python.exe",
+      "runtimeArgs": ["scripts/dev.py", "--port", "8014", "--demo", "--runtime-dir", "runtime/p9-native"],
+      "port": 8014
+    },
+    {
+      "name": "xunqi-p9-resumed",
+      "runtimeExecutable": "D:/Anaconda3/envs/xunqi/python.exe",
+      "runtimeArgs": ["scripts/dev.py", "--port", "8015", "--demo", "--runtime-dir", "runtime/restored-p9-demo"],
+      "port": 8015
+    }
+  ]
+}

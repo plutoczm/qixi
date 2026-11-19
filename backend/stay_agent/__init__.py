@@ -1,0 +1,1 @@
+"""Xunqi local quote application."""

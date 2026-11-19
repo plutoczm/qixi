@@ -1,0 +1,48 @@
+# Secrets and private material
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+private/
+secrets/
+credentials/
+**/credentials.local.*
+# Runtime and provider payloads
+runtime/
+artifacts/
+logs/
+*.log
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+# Build and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.venv/
+node_modules/
+dist/
+build/
+playwright-report/
+test-results/
+# Local editor/OS state
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+# Local assistant state and user-provided screenshots
+.workbuddy/
+道旅API.png
+*.tsbuildinfo

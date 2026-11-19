@@ -1,0 +1,178 @@
+{
+  "dataset_id": "xunqi-guangzhou-agent-fixture-v1",
+  "version": "1.1.0",
+  "label": "广州离线测试夹具",
+  "city": "广州",
+  "generated_at": "2026-11-09T00:00:00+00:00",
+  "purpose": "deterministic Agent rule, state and UI regression fixture",
+  "synthetic": true,
+  "license": "project-owned synthetic test fixture; no third-party dataset used",
+  "notice": "离线 Agent 测试夹具 · 广州离线测试夹具 xunqi-guangzhou-agent-fixture-v1 v1.1.0；仅覆盖广州，酒店与餐厅为虚构样例，真实地理语境配合成值；不是来源接口、实时查源、真实身份或可订报价。",
+  "sources": [],
+  "_scope": {
+    "hotels": "invented brands; Guangzhou district/road/metro context",
+    "restaurants": "invented brands; Guangzhou district/road context",
+    "values": "all prices, inventory, scores, routes, fares and opening hours are synthetic",
+    "city": "广州 only"
+  },
+  "hotels": [
+    {
+      "id": 910101,
+      "name": "样例·芳村栖居（花地湾店）",
+      "address": "广州市荔湾区花地大道中288号",
+      "district": "荔湾区",
+      "reference_price_fen": 16900,
+      "hotel_stars": 4.0,
+      "guest_score": 4.6,
+      "review_count": 328,
+      "restaurant": "样例·潮汕牛肉火锅（荔胜广场店）",
+      "restaurant_address": "广州市荔湾区花地大道中66号荔胜广场6楼",
+      "restaurant_district": "荔湾区",
+      "walk_meters": 1200,
+      "walk_seconds": 900,
+      "drive_meters": 2600,
+      "drive_seconds": 660,
+      "subway_name": "芳村站H口",
+      "subway_walk_meters": 480,
+      "subway_walk_seconds": 360,
+      "opening_today": "10:30-次日02:00（合成样例）",
+      "opening_week": "周一至周日 10:30-次日02:00（合成样例）",
+      "fare_lower_fen": 1200,
+      "fare_upper_fen": 1400,
+      "quotations": [
+        {
+          "room_name": "高级大床房",
+          "plan_name": "不含早 · 预付价",
+          "amount_fen": 16900,
+          "remaining": 4,
+          "cancellation": "入住前一日18:00前可免费取消，之后不可退",
+          "cancelable": true
+        },
+        {
+          "room_name": "标准双床房",
+          "plan_name": "含双早 · 灵活价",
+          "amount_fen": 18800,
+          "remaining": 3,
+          "cancellation": "入住当日12:00前可免费取消",
+          "cancelable": true
+        },
+        {
+          "room_name": "公共卫浴床位",
+          "plan_name": "多人间单床位",
+          "amount_fen": 6000,
+          "remaining": 8,
+          "cancellation": "不可取消、不可退款",
+          "cancelable": false
+        }
+      ]
+    },
+    {
+      "id": 910102,
+      "name": "样例·沙面巷宿（黄沙地铁站店）",
+      "address": "广州市荔湾区丛桂路123号",
+      "district": "荔湾区",
+      "reference_price_fen": 14900,
+      "hotel_stars": 3.5,
+      "guest_score": 4.4,
+      "review_count": 512,
+      "restaurant": "样例·潮汕牛肉火锅（荔胜广场店）",
+      "restaurant_address": "广州市荔湾区花地大道中66号荔胜广场6楼",
+      "restaurant_district": "荔湾区",
+      "walk_meters": 2188,
+      "walk_seconds": 1750,
+      "drive_meters": 4025,
+      "drive_seconds": 816,
+      "subway_name": "黄沙站C口",
+      "subway_walk_meters": 584,
+      "subway_walk_seconds": 480,
+      "opening_today": "10:30-次日02:00（合成样例）",
+      "opening_week": "周一至周日 10:30-次日02:00（合成样例）",
+      "fare_lower_fen": 1800,
+      "fare_upper_fen": 2200,
+      "quotations": [
+        {
+          "room_name": "特惠大床房",
+          "plan_name": "限时预付 · 不含早",
+          "amount_fen": 14900,
+          "remaining": 2,
+          "cancellation": "不可取消、不可退款",
+          "cancelable": false
+        },
+        {
+          "room_name": "舒适双床房",
+          "plan_name": "标准价 · 含早",
+          "amount_fen": 17900,
+          "remaining": 5,
+          "cancellation": "入住前一日18:00前可免费取消",
+          "cancelable": true
+        },
+        {
+          "room_name": "江景大床房",
+          "plan_name": "高楼层 · 含早",
+          "amount_fen": 20500,
+          "remaining": 6,
+          "cancellation": "入住前一日18:00前可免费取消",
+          "cancelable": true
+        }
+      ]
+    },
+    {
+      "id": 910103,
+      "name": "样例·越秀栖处（公园前店）",
+      "address": "广州市越秀区中山五路193号",
+      "district": "越秀区",
+      "reference_price_fen": 13200,
+      "hotel_stars": 3.0,
+      "guest_score": null,
+      "review_count": null,
+      "restaurant": "样例·广式点心楼（北京路店）",
+      "restaurant_address": "广州市越秀区惠福东路455号3楼",
+      "restaurant_district": "越秀区",
+      "walk_meters": 232,
+      "walk_seconds": 186,
+      "drive_meters": 900,
+      "drive_seconds": 420,
+      "subway_name": "公园前站D口",
+      "subway_walk_meters": 180,
+      "subway_walk_seconds": 150,
+      "opening_today": "08:00-22:00（合成样例）",
+      "opening_week": "周一至周日 08:00-22:00（合成样例）",
+      "fare_lower_fen": 900,
+      "fare_upper_fen": 1100,
+      "quotations": [
+        {
+          "room_name": "静谧大床房",
+          "plan_name": "基础价 · 不含早",
+          "amount_fen": 13200,
+          "remaining": 3,
+          "cancellation": "入住前一日18:00前可免费取消",
+          "cancelable": true
+        },
+        {
+          "room_name": "商务双床房",
+          "plan_name": "含双早",
+          "amount_fen": 15800,
+          "remaining": 4,
+          "cancellation": "不可取消、不可退款",
+          "cancelable": false
+        }
+      ]
+    }
+  ],
+  "discovery_candidates": [
+    {
+      "name": "样例·白鹅潭公寓（芳村店）",
+      "address": "广州市荔湾区芳村大道中200号",
+      "price_text": "¥144",
+      "star": "舒适型",
+      "nearby_transit": "近芳村地铁站"
+    },
+    {
+      "name": "样例·西关小院（长寿路店）",
+      "address": "广州市荔湾区宝华路76号",
+      "price_text": "¥168",
+      "star": "经济型",
+      "nearby_transit": "近长寿路地铁站"
+    }
+  ]
+}

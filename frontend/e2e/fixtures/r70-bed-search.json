@@ -1,0 +1,50 @@
+{
+  "request_id": "r68-offline-sample",
+  "status": "complete",
+  "context": {
+    "place": "广州",
+    "place_type": "城市",
+    "check_in": "2026-11-13",
+    "check_out": "2026-11-14",
+    "adults": 2,
+    "rooms": 1,
+    "children_ages": [],
+    "budget_fen": 20000,
+    "limit": 20,
+    "poi_name": null,
+    "accepts_dormitory": true
+  },
+  "queried_at": "2026-11-07T04:20:00.123456+00:00",
+  "source": {
+    "id": "tuniu",
+    "name": "途牛"
+  },
+  "data_mode": "test",
+  "hotels": [
+    {
+      "id": 71,
+      "name": "广州示例酒店（离线样本）",
+      "address": "广州 · 示例路 1 号",
+      "image_url": null,
+      "hotel_stars": 4.0,
+      "guest_score": null,
+      "reference_price_fen": 16900,
+      "currency": "CNY",
+      "booking_url": null,
+      "unverified": [
+        "独立客房待核实",
+        "独卫待核实",
+        "完整费用待核实"
+      ]
+    }
+  ],
+  "coverage": {
+    "returned_count": 1,
+    "requested_limit": 20,
+    "limited": false
+  },
+  "warnings": [],
+  "error": null,
+  "current_page": 1,
+  "next_page": null
+}

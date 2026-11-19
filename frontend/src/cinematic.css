@@ -1,0 +1,441 @@
+/* R81 · restrained cinematic motion and tactile hotel-search UI.
+   GSAP drives only layered entrances and scroll-linked transforms;
+   CSS owns fast hover/press states. All decorative assets are local. */
+:root {
+  --cinema-ease: cubic-bezier(.23, 1, .32, 1);
+  --cinema-green: #174d42;
+  --cinema-gold: #c39159;
+}
+html {scroll-behavior:smooth}
+body {
+  background:
+    radial-gradient(ellipse at 81% -4%, rgba(189,218,194,.42), transparent 34rem),
+    radial-gradient(ellipse at 7% 35%, rgba(240,227,204,.35), transparent 42rem),
+    #fafaf7;
+}
+.site-header {
+  position:sticky;
+  top:0;
+  z-index:70;
+  background:rgba(250,250,247,.91);
+  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(18px);
+  transition:box-shadow .28s var(--cinema-ease),background-color .28s var(--cinema-ease),border-color .28s;
+}
+.site-header.is-scrolled {
+  border-color:rgba(217,229,218,.65);
+  background:rgba(250,250,247,.95);
+  box-shadow:0 10px 30px rgba(21,66,53,.07);
+}
+.consumer-hero {
+  position:relative;
+  isolation:isolate;
+  padding-top:clamp(24px,3.4vw,43px);
+  padding-bottom:clamp(22px,3.4vw,42px);
+}
+.consumer-hero::before {
+  content:"";
+  pointer-events:none;
+  position:absolute;
+  z-index:-1;
+  top:5%;
+  right:22%;
+  width:47%;
+  height:76%;
+  background:radial-gradient(ellipse,rgba(220,234,212,.68),transparent 71%);
+  filter:blur(35px);
+}
+.consumer-hero .hero-layout {
+  grid-template-columns:minmax(0,1.06fr) minmax(360px,.94fr);
+  gap:clamp(30px,4.7vw,76px);
+}
+.consumer-hero .hero-copy {padding:8px 0 18px}
+.consumer-hero .hero-kicker {
+  font-size:11px;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+}
+.consumer-hero h1 {
+  font-size:clamp(43px,4.4vw,70px);
+  font-weight:750;
+  letter-spacing:-.057em;
+  line-height:1.235;
+  margin:23px 0 17px;
+}
+.consumer-hero h1 em {
+  background:linear-gradient(115deg,#bd8856 10%,#cba573 51%,#af7850 90%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.consumer-hero .hero-actions {margin-top:30px}
+.consumer-hero .hero-primary {
+  background:linear-gradient(120deg,#174c44,#287260);
+  box-shadow:0 17px 29px rgba(23,79,67,.20);
+  border:1px solid rgba(244,255,243,.24);
+}
+.consumer-hero .hero-primary:hover {box-shadow:0 19px 32px rgba(23,79,67,.26)}
+.consumer-hero .hero-scene {
+  position:relative;
+  height:clamp(298px,29vw,382px);
+  max-height:none;
+  border-radius:30px;
+  isolation:isolate;
+  border:1px solid rgba(183,213,191,.8);
+  overflow:hidden;
+  box-shadow:
+    0 24px 48px rgba(31,76,62,.13),
+    0 4px 12px rgba(31,76,62,.08),
+    inset 0 0 0 1px rgba(255,255,255,.6);
+}
+.consumer-hero .hero-scene::before {
+  content:"";
+  position:absolute;
+  inset:9px;
+  pointer-events:none;
+  z-index:4;
+  border:1px solid rgba(255,255,255,.33);
+  border-radius:23px;
+}
+.consumer-hero .hero-scene::after {
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  inset:0;
+  z-index:1;
+  background:
+    linear-gradient(0deg,rgba(10,55,44,.27),transparent 35%),
+    linear-gradient(115deg,rgba(247,251,231,.06),transparent 52%);
+}
+.consumer-hero .scene-picture {overflow:hidden;will-change:transform}
+.consumer-hero .scene-picture img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:50% 53%;
+  transform:scale(1.055);
+}
+.scene-atmosphere {
+  position:absolute;
+  inset:-15%;
+  z-index:2;
+  pointer-events:none;
+  opacity:.78;
+  background:
+    radial-gradient(ellipse at 16% 17%,rgba(255,255,244,.50) 0,transparent 37%),
+    radial-gradient(ellipse at 77% 31%,rgba(255,228,172,.44) 0,transparent 45%);
+  mix-blend-mode:screen;
+}
+.scene-map-lines {
+  position:absolute;
+  pointer-events:none;
+  inset:-38% -10% -55%;
+  z-index:2;
+  opacity:.34;
+  background:
+    repeating-radial-gradient(ellipse 66% 37% at 86% 75%,
+       transparent 0 26px,rgba(245,255,231,.63) 26.5px 27px,
+       transparent 27.5px 53px);
+  transform:rotate(-8deg);
+}
+.consumer-hero .scene-index {
+  z-index:5;
+  top:24px;
+  left:24px;
+  border:1px solid rgba(255,255,255,.68);
+  padding:10px 14px;
+  box-shadow:0 7px 19px rgba(40,83,65,.06);
+}
+.consumer-hero .scene-note {
+  z-index:5;
+  right:25px;
+  bottom:25px;
+  background:rgba(255,252,239,.93);
+  -webkit-backdrop-filter:blur(11px);
+  backdrop-filter:blur(11px);
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:19px;
+  box-shadow:0 13px 28px rgba(15,60,43,.18);
+}
+.consumer-hero .scene-seal {z-index:5;bottom:29px;left:28px}
+.consumer-hero .hero-benefits {gap:24px; margin-top:27px}
+.booking-zone > .search-form {
+  box-shadow:0 30px 58px rgba(34,83,63,.085),0 3px 9px rgba(19,65,47,.03);
+  transition:box-shadow .27s var(--cinema-ease),border-color .27s var(--cinema-ease);
+}
+.booking-zone > .search-form:focus-within {
+  border-color:#c9dfcf;
+  box-shadow:0 28px 60px rgba(34,83,63,.10),0 0 0 3px rgba(154,203,169,.18);
+}
+.search-form button,.search-form select,.search-form input,
+.hero-primary,.hero-secondary {touch-action:manipulation}
+.search-form .search-button {transition:transform .19s var(--cinema-ease),box-shadow .19s var(--cinema-ease),background-color .19s}
+.search-form .search-button:active:not(:disabled) {transform:scale(.985)}
+.value-strip > div {
+  transition:background-color .24s var(--cinema-ease),transform .24s var(--cinema-ease);
+}
+.results-heading [data-scroll-reveal] {will-change:transform}
+.hotel-card {
+  position:relative;
+  isolation:isolate;
+  border-color:#dde9e0;
+  box-shadow:0 14px 33px rgba(22,64,44,.075);
+  transition:transform .28s var(--cinema-ease),box-shadow .28s var(--cinema-ease),border-color .28s;
+}
+.hotel-card:focus-within {
+  border-color:#85b59e;
+  box-shadow:0 0 0 2px rgba(74,135,102,.14),0 20px 48px rgba(20,63,45,.12);
+}
+.hotel-photo {position:relative;isolation:isolate}
+.hotel-photo::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,48,44,.03),transparent 60%,rgba(6,48,44,.10));
+}
+.hotel-photo img {will-change:auto}
+.hotel-photo .photo-fallback {
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 68% 19%,rgba(252,237,204,.75),transparent 32%),
+    linear-gradient(142deg,#e9f0e4,#b4d2bf 84%);
+}
+.photo-fallback::after {
+  content:"";
+  position:absolute;
+  width:280px;height:280px;
+  border:1px solid rgba(255,255,255,.46);
+  border-radius:50%;
+  right:-87px;top:-118px;
+  box-shadow:0 0 0 26px rgba(255,255,255,.14),0 0 0 55px rgba(255,255,255,.11);
+  pointer-events:none;
+}
+.hotel-card .hotel-actions .button,
+.comparison-dock button {transition:background-color .19s var(--cinema-ease),transform .19s var(--cinema-ease),border-color .19s}
+.hotel-card .hotel-actions .button:active:not(:disabled) {transform:scale(.976)}
+.condition-summary {
+  position:sticky;
+  top:85px;
+  z-index:45;
+  border-radius:13px;
+  background:rgba(245,250,244,.96);
+  -webkit-backdrop-filter:blur(13px);
+  backdrop-filter:blur(13px);
+  border:1px solid #dceadc;
+  border-left:3px solid #569c75;
+  box-shadow:0 6px 18px rgba(18,57,42,.07);
+}
+@media(hover:hover) and (pointer:fine) {
+  .value-strip > div:hover {
+    background:#eff5ee;
+    transform:translateY(-2px);
+  }
+  .hotel-card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 24px 50px rgba(22,64,44,.13);
+    border-color:#b3ceb9;
+  }
+}
+@media(max-width:900px) {
+  .consumer-hero .hero-layout {grid-template-columns:1fr;gap:23px}
+  .consumer-hero .hero-scene {height:277px;max-height:none}
+  .condition-summary {top:72px}
+}
+@media(max-width:640px) {
+  .site-header {background:rgba(250,250,247,.96)}
+  .consumer-hero {padding-top:21px;padding-bottom:19px}
+  .consumer-hero h1 {font-size:clamp(38px,10vw,50px);margin:18px 0 13px}
+  .consumer-hero .hero-scene {height:204px;border-radius:20px}
+  .consumer-hero .hero-scene::before {inset:6px;border-radius:15px}
+  .consumer-hero .scene-index {top:13px;left:13px;padding:7px 10px}
+  .consumer-hero .scene-note {bottom:11px;right:11px;border-radius:13px;padding:12px 13px}
+  .consumer-hero .scene-seal {left:13px;bottom:14px}
+  .consumer-hero .hero-benefits {gap:15px;margin-top:19px}
+  .condition-summary {top:72px}
+  .hotel-card:hover {transform:none}
+}
+@media(max-width:380px) {
+  .consumer-hero .hero-scene {height:177px}
+  .condition-summary {top:69px}
+}
+@media(prefers-reduced-motion:reduce) {
+  html{scroll-behavior:auto!important}
+  .site-header,.booking-zone > .search-form,.hotel-card,.value-strip > div,
+  .hotel-photo img,.search-form .search-button {transition:none!important;animation:none!important;transform:none!important}
+  .hero-copy > *, .hero-scene, [data-scroll-reveal] {opacity:1!important;visibility:visible!important;transform:none!important}
+  .scene-atmosphere,.scene-map-lines {transform:none!important;animation:none!important}
+}
+
+/* Lightweight loading placeholders: no fake hotels, locations or prices. */
+.hotel-search-skeletons {display:grid;gap:17px;margin:17px 0 25px;pointer-events:none}
+.hotel-search-skeleton {
+  display:grid;
+  grid-template-columns:minmax(190px,30%) minmax(0,1fr);
+  min-height:194px;
+  overflow:hidden;
+  border:1px solid #e4e9e2;
+  background:#fffefa;
+  border-radius:18px;
+  box-shadow:0 10px 27px rgba(25,67,50,.055);
+}
+.skeleton-image {min-height:194px;background-color:#e2ede5}
+.skeleton-copy {display:flex;flex-direction:column;align-items:flex-start;padding:26px 29px;gap:15px;min-width:0}
+.skeleton-small {width:20%;height:10px;border-radius:20px}
+.skeleton-title {width:57%;height:18px;border-radius:30px}
+.skeleton-subtitle {width:73%;height:10px;border-radius:20px}
+.skeleton-tags {display:flex;gap:10px;margin-top:3px}
+.skeleton-tags span {width:76px;height:17px;border-radius:30px}
+.skeleton-tags span:last-child {width:108px}
+.skeleton-foot {width:32%;height:15px;border-radius:20px;margin-top:auto}
+.skeleton-glimmer {
+  background-color:#e5eee6;
+  background-image:linear-gradient(105deg,transparent 21%,rgba(255,255,249,.74) 48%,transparent 76%);
+  background-size:200% 100%;
+  animation:skeleton-sheen 1.55s ease-in-out infinite;
+}
+@keyframes skeleton-sheen {
+  from{background-position:175% 0}
+  to{background-position:-95% 0}
+}
+@media(max-width:640px){
+  .hotel-search-skeleton {grid-template-columns:1fr;min-height:0}
+  .skeleton-image {min-height:135px}
+  .skeleton-copy {padding:20px 21px;gap:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .skeleton-glimmer {animation:none!important;background-image:none!important}
+}
+
+/* Animated comparison dock: visible after the first explicit selection. */
+.candidate-results.has-selection {padding-bottom:116px}
+.candidate-comparison {scroll-margin-top:104px}
+.candidate-comparison:focus {outline:2px solid #7db193;outline-offset:4px}
+.comparison-dock {
+  position:fixed;
+  z-index:90;
+  left:0;
+  right:0;
+  bottom:clamp(12px,2vw,24px);
+  width:min(950px,calc(100vw - 28px));
+  margin-inline:auto;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center;
+  gap:clamp(12px,1.5vw,22px);
+  border-radius:20px;
+  padding:13px 16px;
+  border:1px solid rgba(213,232,213,.24);
+  background:linear-gradient(130deg,rgba(24,74,61,.97),rgba(27,91,75,.98));
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  color:#f7fbf5;
+  box-shadow:0 24px 58px rgba(15,54,42,.30),0 5px 13px rgba(15,54,42,.13),inset 0 1px rgba(255,255,255,.14);
+}
+.comparison-dock::before {
+  content:"";
+  position:absolute;
+  inset:1px;
+  z-index:-1;
+  pointer-events:none;
+  border-radius:19px;
+  background:radial-gradient(ellipse at 13% 0%,rgba(236,216,168,.14),transparent 47%);
+}
+.dock-heading {display:flex;align-items:center;gap:11px;min-width:0}
+.dock-glyph {
+  display:grid;place-items:center;flex:none;
+  width:38px;height:38px;border-radius:12px;
+  font-size:25px;font-weight:400;color:#f6e4c4;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.14);
+}
+.dock-heading > div {display:flex;flex-direction:column;gap:3px}
+.dock-heading strong {white-space:nowrap;font-size:13px;font-weight:750;letter-spacing:.05em}
+.dock-heading small {color:#d0e0d2;font-size:11px;white-space:nowrap;letter-spacing:.1em}
+.dock-chips {display:flex;align-items:center;gap:7px;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain;padding:3px 1px;scrollbar-width:none}
+.dock-chips::-webkit-scrollbar {display:none}
+.dock-chip {
+  display:inline-flex;align-items:center;gap:7px;flex:none;min-width:0;max-width:190px;
+  padding:7px 7px 7px 13px;border-radius:99px;
+  background:rgba(250,252,237,.11);
+  border:1px solid rgba(255,255,255,.17);
+  color:#f5f8ee;
+  font-size:11px;
+}
+.dock-chip > span {display:block;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.dock-chip button {
+  display:grid;place-items:center;flex:none;width:23px;height:23px;
+  border:0;border-radius:50%;font-size:17px;font-weight:400;line-height:1;
+  color:#e9f2e8;background:rgba(255,255,255,.08);cursor:pointer;
+}
+.dock-chip button:hover {background:rgba(255,255,255,.22)}
+.dock-actions {display:flex;align-items:center;gap:8px}
+.dock-actions button {cursor:pointer;flex:none}
+.dock-clear {border:0;color:#d3e3d8;background:transparent;font-size:11px;font-weight:650;padding:10px 8px}
+.dock-clear:hover {color:#fff}
+.dock-view {
+  display:inline-flex;align-items:center;justify-content:space-between;gap:18px;
+  background:#f1dec0;color:#23483e;border:1px solid #f6e8cd;
+  border-radius:12px;min-height:42px;padding:9px 13px 9px 17px;
+  font-size:12px;font-weight:800;white-space:nowrap;
+  box-shadow:0 8px 16px rgba(16,49,39,.13);
+}
+.dock-view:hover:not(:disabled) {background:#ffebcd;transform:translateY(-1px)}
+.dock-view:disabled {opacity:.48;cursor:not-allowed;box-shadow:none}
+.comparison-dock button:focus-visible {outline:2px solid #f6df9b;outline-offset:3px}
+@media(max-width:640px){
+  .candidate-results.has-selection {padding-bottom:164px}
+  .comparison-dock {
+    width:calc(100vw - 22px);
+    bottom:calc(10px + env(safe-area-inset-bottom));
+    border-radius:17px;
+    padding:11px 12px;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"heading actions" "chips chips";
+    gap:10px 8px;
+  }
+  .dock-heading {grid-area:heading;gap:9px}
+  .dock-glyph {width:32px;height:32px;border-radius:10px;font-size:20px}
+  .dock-heading strong {font-size:12px}
+  .dock-heading small {font-size:10px}
+  .dock-chips {grid-area:chips}
+  .dock-chip {max-width:min(215px,68vw);font-size:10px;padding:6px 6px 6px 10px}
+  .dock-actions {grid-area:actions;gap:4px}
+  .dock-clear {font-size:10px;padding:8px 5px}
+  .dock-view {gap:6px;min-height:35px;border-radius:9px;padding:7px 9px;font-size:11px}
+  .candidate-comparison {scroll-margin-top:84px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .comparison-dock,.dock-chip,.comparison-dock button {transition:none!important;animation:none!important;transform:none!important;opacity:1!important}
+}
+
+/* State changes are quick and directional, not theatrical in the booking flow. */
+.room-panel,.travel-panel,.candidate-comparison,.assistant-drawer[open]>.natural-query,
+.advanced-options[open]>.advanced-options-body {
+  animation:detail-arrive .26s cubic-bezier(.23,1,.32,1) both;
+  transform-origin:top center;
+}
+@keyframes detail-arrive {
+  from{opacity:.42;transform:translateY(9px) scale(.996)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.room-panel {border-radius:0 0 18px 18px}
+.room-panel .room-toolbar {border-bottom:1px solid #dbe7dd;padding-bottom:14px;margin-bottom:14px}
+.room-panel .room-toolbar h4 {font-size:18px;letter-spacing:-.025em}
+.room-panel .room-toolbar .text-button:focus-visible,
+.travel-launch button:focus-visible {outline:2px solid #7db093;outline-offset:3px;border-radius:6px}
+.candidate-comparison {
+  border:1px solid #dce8de;
+  background:#fffefa;
+  box-shadow:0 17px 36px rgba(22,65,43,.08);
+}
+.candidate-comparison table {border-collapse:separate;border-spacing:0}
+.candidate-comparison tbody tr:hover {background:#f6faf4}
+@media(prefers-reduced-motion:reduce) {
+ .room-panel,.travel-panel,.candidate-comparison,
+ .assistant-drawer[open]>.natural-query,
+ .advanced-options[open]>.advanced-options-body {
+   animation:none!important;transition:none!important;transform:none!important;opacity:1!important
+ }
+}

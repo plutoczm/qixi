@@ -1,0 +1,8 @@
+name: xunqi
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+# Conda bootstrap only. R3 approved application/dev pins: requirements.lock.txt.
+# Frontend exact dependency graph: frontend/package-lock.json.

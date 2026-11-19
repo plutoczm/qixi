@@ -1,0 +1,5 @@
+interface:
+  display_name: "Grill Me"
+  short_description: "Ask one focused design question at a time"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,23 @@
+services:
+  xunqi:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        XUNQI_APP_COMMIT: ${XUNQI_APP_COMMIT:-unknown}
+    image: xunqi-2.0:local
+    ports:
+      - "127.0.0.1:8013:8000"
+    environment:
+      XUNQI_DATA_MODE: ${XUNQI_DATA_MODE:-live}
+      XUNQI_HOTEL_SOURCE: ${XUNQI_HOTEL_SOURCE:-rollinggo}
+      XUNQI_PORT: "8000"
+      XUNQI_RUNTIME_DIR: ${XUNQI_RUNTIME_DIR:-/app/runtime}
+    volumes:
+      - ../runtime:/app/runtime
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    user: "10001:10001"
