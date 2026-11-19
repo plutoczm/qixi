@@ -8,7 +8,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-FILES = {"spec.md", "plan_baseline.md", "plan_runtime.md", "progress.md", "project_notes.md"}
+FILES = {"spec.md", "plan_baseline.md", "plan_runtime.md", "progress.md"}
 STAGES = [f"S{i}" for i in range(1, 13)]
 ROW = re.compile(r"^\| (S\d+) \|", re.M)
 STEP_ROW = re.compile(r"^\| (S\d+\.\d+) \|")

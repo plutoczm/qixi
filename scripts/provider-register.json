@@ -17,7 +17,7 @@
       "required_for_v1": true,
       "status": "verified",
       "block_reason": null,
-      "evidence_document": "docs/project_notes.md",
+      "evidence_document": null,
       "permissions": {
         "application_subject": "user-registered individual developer",
         "credentials_present": true,
@@ -42,9 +42,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -54,9 +52,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -67,9 +63,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -81,9 +75,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -94,9 +86,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -108,9 +98,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -121,9 +109,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -134,9 +120,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -147,9 +131,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -160,9 +142,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -173,9 +153,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -186,9 +164,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -199,9 +175,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -212,9 +186,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -225,9 +197,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -238,9 +208,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -251,9 +219,7 @@
           "state": "unverified",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -264,9 +230,7 @@
           "state": "blocked",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 0,
           "live_sample_count": 0,
@@ -289,7 +253,7 @@
       "status": "unverified",
       "block_reason": "只读生产技术调用已通过；完整用途许可及夜间/资格/有效期等仍未核实，不能认定完整推荐门禁通过。",
       "public_reviewed_at": "2026-10-15",
-      "evidence_document": "docs/project_notes.md",
+      "evidence_document": null,
       "permissions": {
         "application_subject": null,
         "credentials_present": true,
@@ -312,10 +276,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -325,10 +286,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -340,10 +298,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -355,10 +310,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -370,10 +322,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -385,10 +334,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -400,10 +346,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -415,10 +358,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -439,7 +379,7 @@
         "local_reference_ui_implemented": true,
         "commercial_permission_verified": false,
         "full_recommendation_verified": false,
-        "evidence": "docs/project_notes.md",
+        "evidence": null,
         "live_web_route_verified": true,
         "live_web_refresh_verified": true,
         "hotel_match_basis": "user_confirmed"
@@ -453,7 +393,7 @@
       "status": "unverified",
       "block_reason": "只读生产技术调用已通过；完整用途许可及夜间/资格/有效期等仍未核实，不能认定完整推荐门禁通过。",
       "public_reviewed_at": "2026-10-15",
-      "evidence_document": "docs/project_notes.md",
+      "evidence_document": null,
       "permissions": {
         "application_subject": null,
         "credentials_present": true,
@@ -476,10 +416,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -489,10 +426,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -504,10 +438,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -519,10 +450,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -532,10 +460,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -547,10 +472,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -562,10 +484,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -577,10 +496,7 @@
           "state": "blocked",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -601,11 +517,11 @@
         "local_reference_ui_implemented": true,
         "commercial_permission_verified": false,
         "full_recommendation_verified": false,
-        "evidence": "docs/project_notes.md",
+        "evidence": null,
         "live_web_route_verified": true,
         "live_web_refresh_verified": true,
         "hotel_match_basis": "user_confirmed",
-        "live_web_evidence": "docs/project_notes.md"
+        "live_web_evidence": null
       }
     },
     {
@@ -616,7 +532,7 @@
       "status": "blocked",
       "block_reason": "项目适用权限与真实样本尚未提供；本轮未检查本地凭据。",
       "public_reviewed_at": "2026-10-15",
-      "evidence_document": "docs/project_notes.md",
+      "evidence_document": null,
       "permissions": {
         "application_subject": null,
         "credentials_present": null,
@@ -639,10 +555,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -652,10 +565,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -665,10 +575,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -678,10 +585,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -691,10 +595,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -704,10 +605,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -717,10 +615,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -730,10 +625,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -743,10 +635,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -756,10 +645,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -769,10 +655,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -782,10 +665,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -795,10 +675,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -808,10 +685,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -837,7 +711,7 @@
       "status": "blocked",
       "block_reason": "项目适用权限与真实样本尚未提供；本轮未检查本地凭据。",
       "public_reviewed_at": "2026-10-15",
-      "evidence_document": "docs/project_notes.md",
+      "evidence_document": null,
       "permissions": {
         "application_subject": null,
         "credentials_present": null,
@@ -860,10 +734,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -873,10 +744,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -886,10 +754,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -899,10 +764,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -912,10 +774,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -925,10 +784,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -938,10 +794,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -951,10 +804,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -964,10 +814,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -977,10 +824,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -990,10 +834,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1003,10 +844,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1016,10 +854,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1029,10 +864,7 @@
           "state": "blocked",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1058,7 +890,7 @@
       "status": "unverified",
       "block_reason": "只读生产技术调用已通过；完整用途许可及夜间/资格/有效期等仍未核实，不能认定完整推荐门禁通过。",
       "public_reviewed_at": "2026-10-15",
-      "evidence_document": "docs/project_notes.md",
+      "evidence_document": null,
       "permissions": {
         "application_subject": null,
         "credentials_present": true,
@@ -1081,10 +913,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -1094,10 +923,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 1,
           "live_sample_count": 0,
@@ -1109,10 +935,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1124,10 +947,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1137,10 +957,7 @@
           "state": "unverified",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1152,10 +969,7 @@
           "state": "blocked",
           "required": true,
           "public_documented": true,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1165,10 +979,7 @@
           "state": "blocked",
           "required": false,
           "public_documented": false,
-          "evidence_refs": [
-            "docs/project_notes.md",
-            "docs/project_notes.md"
-          ],
+          "evidence_refs": [],
           "live_evidence_refs": [],
           "minimum_live_samples": 3,
           "live_sample_count": 0,
@@ -1186,11 +997,11 @@
         "local_reference_ui_implemented": true,
         "commercial_permission_verified": false,
         "full_recommendation_verified": false,
-        "evidence": "docs/project_notes.md",
+        "evidence": null,
         "live_web_route_verified": true,
         "live_web_refresh_verified": true,
         "hotel_match_basis": "user_confirmed",
-        "live_web_evidence": "docs/project_notes.md"
+        "live_web_evidence": null
       }
     }
   ],
@@ -1211,7 +1022,7 @@
       "tencent",
       "didi"
     ],
-    "evidence": "docs/project_notes.md",
+    "evidence": null,
     "live_web_places_passed": true,
     "live_web_routes_passed": true,
     "full_maps_gate_passed": false,
@@ -1221,11 +1032,8 @@
       "didi"
     ],
     "live_web_uncovered_route_providers": [],
-    "live_web_route_evidence": "docs/project_notes.md",
+    "live_web_route_evidence": null,
     "identity_basis": "explicit_human_confirmation_for_each_sample_only",
-    "live_web_route_evidence_refs": [
-      "docs/project_notes.md",
-      "docs/project_notes.md"
-    ]
+    "live_web_route_evidence_refs": []
   }
 }
