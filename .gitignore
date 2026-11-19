@@ -43,6 +43,7 @@ test-results/
 .DS_Store
 Thumbs.db
 # Local assistant state and user-provided screenshots
+/.claude/
 .workbuddy/
 道旅API.png
 *.tsbuildinfo

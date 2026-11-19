@@ -2,17 +2,17 @@
 
 ## 当前进度
 
-- **执行到哪里**：已完成整理、本地合并和 GitHub 公开发布。
-- **最近验收**：S12.8 已通过。
-- **接下来**：当前计划结项。
+- **执行到哪里**：S12.11 正在发布 GitHub README 与清理结果。
+- **最近验收**：S12.10 已通过。
+- **接下来**：核对远端 main、图片文件和已移除目录。
 - **阻塞**：无。
 
 ## 执行位置
 
-current_stage: null
-current_step: null
-current_status: done
-last_accepted_step: S12.8
+current_stage: S12
+current_step: S12.11
+current_status: doing
+last_accepted_step: S12.10
 historical_through: S12.4
 
 - `current_stage` 和 `current_step` 分别指向当前阶段与唯一可执行步骤。`null` 表示当前计划已结项。
@@ -35,7 +35,7 @@ historical_through: S12.4
 | S9 | done | 原生和容器环境可用，既有备份已在隔离位置恢复核对。 |
 | S10 | done | 历史样本当时通过 G2-Historical。G2-Live 保持阻断并已移出个人交付范围。 |
 | S11 | done | `寻栖.exe` 实际启动新版，健康检查、托盘及退出已验收。 |
-| S12 | done | 已完成整理、本地合并和 GitHub 公开发布。 |
+| S12 | doing | S12.11 正在发布 GitHub README 与清理结果。 |
 
 ## 已记录结果
 
@@ -59,3 +59,5 @@ historical_through: S12.4
 | S12.6 | 后端 1,131 通过、前端 260 通过，构建、格式、契约、架构和文档检查通过；本机首页与构建一致。当前 309 个发布候选文件未发现凭据、运行数据或旧证据快照。 |
 | S12.7 | 开发分支已提交并快进合入本地 main，完整合并历史保留在仅本地分支 codex/local-history-20261119。 |
 | S12.8 | GitHub 仓库 plutoczm/qixi 的 main 已接收并核对公开根提交 9bb1785。完整原提交历史仍保留在本机，公开版本携带核验后的源码与文档。 |
+| S12.9 | 当前生产构建在浏览器中以合成响应用例显示三源推荐、步行与驾车时长以及滴滴估价。三张图经目视核对，README 图片和文档链接检查通过。业务接口请求为 0。 |
+| S12.10 | 项目目录已无 .claude，Git 待提交树中该目录已移除。git check-ignore 确认根目录规则生效。 |
