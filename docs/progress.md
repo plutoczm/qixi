@@ -2,17 +2,17 @@
 
 ## 当前进度
 
-- **执行到哪里**：S12.11 正在发布 GitHub README 与清理结果。
-- **最近验收**：S12.10 已通过。
-- **接下来**：核对远端 main、图片文件和已移除目录。
+- **执行到哪里**：README 更新和项目 .claude 清理已发布。
+- **最近验收**：S12.11 已通过。
+- **接下来**：本轮结项。Windows 便携版仅完成可行性判断。
 - **阻塞**：无。
 
 ## 执行位置
 
-current_stage: S12
-current_step: S12.11
-current_status: doing
-last_accepted_step: S12.10
+current_stage: null
+current_step: null
+current_status: done
+last_accepted_step: S12.11
 historical_through: S12.4
 
 - `current_stage` 和 `current_step` 分别指向当前阶段与唯一可执行步骤。`null` 表示当前计划已结项。
@@ -35,7 +35,7 @@ historical_through: S12.4
 | S9 | done | 原生和容器环境可用，既有备份已在隔离位置恢复核对。 |
 | S10 | done | 历史样本当时通过 G2-Historical。G2-Live 保持阻断并已移出个人交付范围。 |
 | S11 | done | `寻栖.exe` 实际启动新版，健康检查、托盘及退出已验收。 |
-| S12 | doing | S12.11 正在发布 GitHub README 与清理结果。 |
+| S12 | done | README 更新和项目 .claude 清理已发布。 |
 
 ## 已记录结果
 
@@ -61,3 +61,4 @@ historical_through: S12.4
 | S12.8 | GitHub 仓库 plutoczm/qixi 的 main 已接收并核对公开根提交 9bb1785。完整原提交历史仍保留在本机，公开版本携带核验后的源码与文档。 |
 | S12.9 | 当前生产构建在浏览器中以合成响应用例显示三源推荐、步行与驾车时长以及滴滴估价。三张图经目视核对，README 图片和文档链接检查通过。业务接口请求为 0。 |
 | S12.10 | 项目目录已无 .claude，Git 待提交树中该目录已移除。git check-ignore 确认根目录规则生效。 |
+| S12.11 | GitHub main 已接收 510882d。核对远端分支、README 和三张图片文件；公开提交树已无 .claude。 |
