@@ -2,17 +2,17 @@
 
 ## 当前进度
 
-- **执行到哪里**：S12.14 正在推送 GitHub 更新。
-- **最近验收**：S12.13 已通过。
-- **接下来**：核对远端 main 和公开树。
+- **执行到哪里**：跨机器使用说明和公开文档整理已发布。
+- **最近验收**：S12.14 已通过。
+- **接下来**：本轮结项。
 - **阻塞**：无。
 
 ## 执行位置
 
-current_stage: S12
-current_step: S12.14
-current_status: doing
-last_accepted_step: S12.13
+current_stage: null
+current_step: null
+current_status: done
+last_accepted_step: S12.14
 historical_through: S12.4
 
 - `current_stage` 和 `current_step` 分别指向当前阶段与唯一可执行步骤。`null` 表示当前计划已结项。
@@ -35,7 +35,7 @@ historical_through: S12.4
 | S9 | done | 原生和容器环境可用，既有备份已在隔离位置恢复核对。 |
 | S10 | done | 历史样本当时通过 G2-Historical。G2-Live 保持阻断并已移出个人交付范围。 |
 | S11 | done | `寻栖.exe` 实际启动新版，健康检查、托盘及退出已验收。 |
-| S12 | doing | S12.14 正在推送 GitHub 更新。 |
+| S12 | done | 跨机器使用说明和公开文档整理已发布。 |
 
 ## 已记录结果
 
@@ -64,3 +64,4 @@ historical_through: S12.4
 | S12.11 | GitHub main 已接收 510882d。核对远端分支、README 和三张图片文件；公开提交树已无 .claude。 |
 | S12.12 | 在独立的 Windows 中文路径解压源码，使用现成的 Python 与前端依赖构建。离线广州查询返回 3 条合成候选；空白配置的实际模式可打开主页及健康接口。真实业务请求为 0。 |
 | S12.13 | 笔记原文已保存在本机 Git 忽略目录。四份执行文档检查、架构检查和预检专项 27 项通过；公开登记结构有效，真实证据门禁保持未通过。 |
+| S12.14 | GitHub main 已接收 576243e。公开 README 的下载、配置及可选 CLI 说明已核对，远端 docs 仅列出四份执行文档。 |
