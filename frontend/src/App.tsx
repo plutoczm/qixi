@@ -17,11 +17,13 @@ import stayLandscape from './assets/stay-landscape.svg';
 import OfflineNotice, {DEMO_SOURCE_NAME, isOffline} from './OfflineNotice';
 import CheckpointNotice from './CheckpointNotice';
 import ParallelHotelResults from './ParallelHotelResults';
+import type {ConfirmedDestination} from './HotelTransport';
 import type {CheckpointResume, ConversationState, Health, ParallelSearchResponse, SearchInput, SearchResponse, RecallResponse} from './types';
 
 export default function App() {
   const [result,setResult] = useState<SearchResponse|null>(null);
   const [batch,setBatch]=useState<ParallelSearchResponse|null>(null);
+  const [batchDestination,setBatchDestination]=useState<{operationId:string;point:ConfirmedDestination}|null>(null);
   const [loading,setLoading] = useState(false);
   const [continuing,setContinuing]=useState(false);
   const [error,setError] = useState('');
@@ -63,7 +65,7 @@ export default function App() {
   }
   async function search(input:SearchInput,options?:RecallOptions) {
     if(recallOperation.current)void cancelRecall(recallOperation.current).catch(()=>{});
-    stopParallel();setBatch(null);
+    stopParallel();setBatch(null);setBatchDestination(null);
     let parallelId:string|null=null;
     setContinuing(false);
     const operation=options?crypto.randomUUID():null;recallOperation.current=operation;setMulti(null);setBranch('');
@@ -238,8 +240,10 @@ export default function App() {
       {!result && !batch && !loading && !error && <div className="welcome-state" data-scroll-reveal><div className="welcome-symbol" aria-hidden="true"><span>⌂</span></div><h3>从这里开始，找到喜欢的酒店</h3><p>在上方填好目的地、入住日期和人数，点击“查询房价”，这里就会出现可供比较的住宿。</p><div className="welcome-points"><span>查看酒店</span><span>比较价格</span><span>了解返程</span></div></div>}
       {batch&&<div key={batch.operation_id}>
         <div className="condition-summary"><strong>{batch.context.place}</strong><span>{batch.context.check_in} — {batch.context.check_out}</span><span>每房 {batch.context.adults} 成人 · {batch.context.rooms} 间房</span></div>
-        <NearbyExplorer requestId={mapSearch?.request_id??null} context={batch.context} hotels={mapSearch?.hotels??[]} offline={false} parallel/>
-        <ParallelHotelResults batch={batch}/>
+        <NearbyExplorer requestId={mapSearch?.request_id??null} context={batch.context} hotels={mapSearch?.hotels??[]} offline={false} parallel
+          onSearchDestination={point=>setBatchDestination(point?{operationId:batch.operation_id,point}:null)}/>
+        <ParallelHotelResults batch={batch}
+          destination={batchDestination?.operationId===batch.operation_id?batchDestination.point:null}/>
       </div>}
       {result && <>
         {offline && <p className="test-banner">广州测试夹具 · 非实时查源 · 不可订</p>}

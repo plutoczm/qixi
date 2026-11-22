@@ -1,10 +1,14 @@
 import {useEffect,useRef,useState} from 'react';
 import {loadTuniuPage} from './api';
 import HotelResults from './HotelResults';
-import HotelTransport from './HotelTransport';
-import {conflictingParallelQuote,recommendParallel,rememberParallelQuote,shortlistParallel} from './parallelRecommendations';
+import HotelTransport,{samePlace} from './HotelTransport';
+import type {ConfirmedDestination} from './HotelTransport';
+import type {TransportObservation} from './TravelPanel';
+import {conflictingParallelQuote,parallelHotelAnchor,parallelHotelKey,recommendParallel,rememberParallelQuote,shortlistParallel} from './parallelRecommendations';
 import type {WalkEvidence} from './parallelRecommendations';
 import type {ParallelSearchResponse,ParallelSourceResult,QuotesResponse,SearchResponse} from './types';
+import {emptyHotelLocalFilters,parseHotelLocalPrice,selectLocalHotels} from './hotelLocalView';
+import type {HotelLocalFilters} from './hotelLocalView';
 import './parallelHotelResults.css';
 
 const labels:Record<string,string>={rollinggo:'道旅',tuniu:'途牛',flyai:'飞猪'};
@@ -19,11 +23,14 @@ const errors:Record<string,string>={
   REQUEST_LIMIT:'本轮请求额度已用完',
 };
 
-export default function ParallelHotelResults({batch,walks={},requireWalk=false}:{
+export default function ParallelHotelResults({batch,walks={},requireWalk=false,destination=null}:{
   batch:ParallelSearchResponse;walks?:Readonly<Record<string,WalkEvidence>>;requireWalk?:boolean;
+  destination?:ConfirmedDestination|null;
 }){
   const [pages,setPages]=useState<SearchResponse|null>(null);
   const [quotes,setQuotes]=useState<Record<string,QuotesResponse>>({});
+  const [transport,setTransport]=useState<Record<string,TransportObservation>>({});
+  const [filters,setFilters]=useState<Record<string,HotelLocalFilters>>({});
   const [paging,setPaging]=useState(false);
   const [pageError,setPageError]=useState('');
   const [now,setNow]=useState(Date.now);
@@ -34,10 +41,40 @@ export default function ParallelHotelResults({batch,walks={},requireWalk=false}:
   },[]);
   const sources=batch.sources.map(source=>source.id==='tuniu'&&pages
     ?{...source,search:pages,status:pages.coverage.limited?'limited' as const:pages.status}:source);
-  const recommendations=recommendParallel({...batch,sources},quotes,walks,requireWalk,now);
-  const references=recommendations.filter(row=>row.tier==='reference');
-  const shortlist=shortlistParallel(recommendations);
+  const cardWalks:Record<string,WalkEvidence>={};
+  if(destination&&destination.expiresAt>now){
+    for(const [key,{result,origin,hotel}] of Object.entries(transport)){
+      const observedAt=Date.parse(result.queried_at);
+      const expiresAt=Math.min(destination.expiresAt,observedAt+120000);
+      const walk=result.return_walk;
+      if(walk&&observedAt<=now&&expiresAt>now&&result.data_mode===destination.dataMode
+        &&result.hotel_match_basis==='exact_fields'&&samePlace(origin,destination)
+        &&walk.origin_name===origin.name&&walk.destination_name===hotel.name){
+        cardWalks[key]={metres:walk.distance_meters,expiresAt};
+      }
+    }
+  }
+  const visibleKeys=new Set<string>();
+  for(const source of sources){
+    const search=source.search;
+    if(search){
+      const filter=filters[search.request_id]??emptyHotelLocalFilters;
+      const visible=selectLocalHotels(search.hotels,{
+        sort:'source',keyword:filter.keyword,maxPriceFen:parseHotelLocalPrice(filter.maxPrice).fen,
+      });
+      for(const hotel of visible)visibleKeys.add(parallelHotelKey(search.request_id,hotel.id));
+    }else if(source.id==='flyai'){
+      source.candidates.forEach((_,index)=>visibleKeys.add('flyai:'+index));
+    }
+  }
+  const recommendations=recommendParallel({...batch,sources},quotes,walks,requireWalk,now,cardWalks);
+  const shortlist=shortlistParallel(recommendations.filter(row=>visibleKeys.has(row.key)));
   const hasConflict=Object.values(quotes).some(conflictingParallelQuote);
+  function onTransport(key:string,observation:TransportObservation){
+    if(observation.result.provider==='didi')return;
+    setNow(Date.now());
+    setTransport(previous=>({...previous,[key]:observation}));
+  }
   function onQuote(key:string,result:QuotesResponse|null){
     setNow(Date.now());
     setQuotes(previous=>{
@@ -70,11 +107,12 @@ export default function ParallelHotelResults({batch,walks={},requireWalk=false}:
   return <section className="parallel-hotel-results" aria-label="三家住宿来源结果">
     <div className="state-message parallel-recommendations">
       <h3>寻栖自动推荐</h3>
-      <p>{references.length?'以下是通过本轮条件核对的参考候选。':
-        shortlist.length?'暂无已核实满足条件的住宿。寻栖已选出优先核对候选。':'本轮没有可推荐的候选。'}</p>
+      <p>{shortlist[0]?.tier==='reference'?'以下是通过本轮条件核对的参考候选。':
+        shortlist.length?'以下候选值得优先核对。':
+        recommendations.length?'当前筛选下没有可推荐的候选。':'本轮没有可推荐的候选。'}</p>
       {hasConflict&&<p>已发现同店或入住条件冲突的候选已从推荐中排除。</p>}
       {shortlist.length>0&&<ol>{shortlist.map(row=><li key={row.key}>
-        <a href={'#parallel-hotel-'+row.key}>{row.name}</a> · {row.source}
+        <a href={'#'+parallelHotelAnchor(batch.operation_id,row.key)}>{row.name}</a> · {row.source}
         <small>{row.reasons.join(' · ')}</small>
       </li>)}</ol>}
     </div>
@@ -91,17 +129,23 @@ export default function ParallelHotelResults({batch,walks={},requireWalk=false}:
         {!!search?.warnings.length&&<details className="search-scope"><summary>查看{labels[source.id]}的报价说明</summary>
           <ul>{search.warnings.map(warning=><li key={warning}>{warning}</li>)}</ul>
         </details>}
-        {search?.hotels.length ? <HotelResults result={search} multi={null} hotels={search.hotels} onQuote={onQuote}/> : null}
+        {search?.hotels.length ? <HotelResults key={search.request_id} result={search} multi={null} hotels={search.hotels} onQuote={onQuote}
+          parallelOperationId={batch.operation_id} filterView={{value:filters[search.request_id]??emptyHotelLocalFilters,
+            onChange:value=>setFilters(previous=>({...previous,[search.request_id]:value}))}}
+          destination={destination} onTransport={(key,observation)=>{
+            if(observation.result.data_mode===search.data_mode)onTransport(key,observation);
+          }}/> : null}
         {source.id==='tuniu'&&search?.next_page&&<button type="button" className="button outline"
           onClick={()=>void nextPage(search)} disabled={paging}>{paging?'正在查询…':'查看途牛下一页（消耗 API 请求）'}</button>}
         {source.id==='tuniu'&&pageError&&<p role="alert">{pageError}</p>}
         {source.id==='flyai'&&count>0&&<>
           <p>飞猪提供搜索线索，入住人数、间数、币种和报价口径待核实。</p>
-          <ul>{source.candidates.map((hotel,index)=><li key={index} id={'parallel-hotel-flyai:'+index}>
+          <ul>{source.candidates.map((hotel,index)=><li key={index} className="parallel-hotel-target" id={parallelHotelAnchor(batch.operation_id,'flyai:'+index)} tabIndex={-1}>
             <strong>{hotel.name}</strong> · {hotel.address??'地址待核实'}
             {hotel.price_text&&<> · 来源展示 {hotel.price_text}</>}
             <HotelTransport hotel={{id:index+1,name:hotel.name,address:hotel.address}}
-              requestId={'flyai:'+batch.operation_id} context={batch.context}/>
+              requestId={'flyai:'+batch.operation_id} context={batch.context} destination={destination}
+              onObservation={observation=>onTransport('flyai:'+index,observation)}/>
           </li>)}</ul>
         </>}
       </section>;

@@ -7,17 +7,22 @@ import type {Hotel,PlaceOption,SearchInput} from './types';
 const sourceNames={amap:'高德',tencent:'腾讯',didi:'滴滴'};
 const observedUntil=(observation:TransportObservation)=>Date.parse(observation.result.queried_at)+120000;
 
-function comparablePlace(left:PlaceOption,right:PlaceOption) {
-  return !!(left.name&&right.name&&left.address&&right.address&&left.city&&right.city)
+export type PlaceIdentity=Pick<PlaceOption,'name'|'address'|'city'>;
+export type ConfirmedDestination=PlaceIdentity&{expiresAt:number;dataMode:TransportObservation['result']['data_mode']};
+
+function comparablePlace(left:PlaceIdentity,right:PlaceIdentity) {
+  return !!(left.name.trim()&&right.name.trim()&&left.address?.trim()&&right.address?.trim()&&left.city?.trim()&&right.city?.trim())
     && left.city.replace(/市$/,'')===right.city.replace(/市$/,'');
 }
 
-function samePlace(left:PlaceOption,right:PlaceOption) {
+export function samePlace(left:PlaceIdentity,right:PlaceIdentity) {
   return comparablePlace(left,right)&&left.name===right.name&&left.address===right.address;
 }
 
-export default function HotelTransport({hotel,requestId,context,offline=false}:{
+export default function HotelTransport({hotel,requestId,context,offline=false,destination,onObservation}:{
   hotel:Pick<Hotel,'id'|'name'|'address'>;requestId:string;context:SearchInput;offline?:boolean;
+  destination?:ConfirmedDestination|null;
+  onObservation?:(observation:TransportObservation)=>void;
 }) {
   const [open,setOpen]=useState(false);
   const [current,setCurrent]=useState<TransportObservation|null>(null);
@@ -62,6 +67,7 @@ export default function HotelTransport({hotel,requestId,context,offline=false}:{
     if(observation) {
       const kind=observation.result.provider==='didi'?'fare':'map';
       previous.current[kind]=observation;
+      onObservation?.(observation);
     }
     setNow(Date.now());
     setCurrent(observation);
@@ -93,6 +99,6 @@ export default function HotelTransport({hotel,requestId,context,offline=false}:{
         }
       }}>{confirmed?'撤销地点核对':'确认两端各自是同一地点'}</button>
     </details>}
-    {open&&<TravelPanel hotel={hotel} requestId={requestId} context={context} offline={offline} onResult={showResult}/>}
+    {open&&<TravelPanel hotel={hotel} requestId={requestId} context={context} offline={offline} destination={destination&&destination.expiresAt>Date.now()?destination:null} onResult={showResult}/>}
   </div>;
 }

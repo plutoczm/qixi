@@ -57,6 +57,25 @@ def test_missing_or_different_branch_room_city_never_auto_matches(change):
     assert result["status"] == "unverified"
 
 
+@pytest.mark.parametrize(
+    "candidate_name,candidate_address,city,expected",
+    [
+        ("测试酒店（芳村店）", "测试路25号", "广州市", "matched"),
+        ("测试酒店（另一店）", "测试路25号", "广州市", "unverified"),
+        ("测试酒店·芳村店", "测试路26号", "广州市", "unverified"),
+        ("测试酒店（芳村店）", "测试路26号", "广州市", "unverified"),
+        ("测试酒店（芳村店）", None, "广州市", "unverified"),
+        ("测试酒店（芳村店）", "测试路25号", "佛山市", "unverified"),
+        ("测试酒店芳村店", "测试路25号", "广州市", "unverified"),
+    ],
+)
+def test_branch_label_formatting_requires_matching_full_fields(candidate_name, candidate_address, city, expected):
+    hotel = {"name": "测试酒店·芳村店", "address": "测试路25号"}
+    candidate = {"id": "one", "name": candidate_name, "address": candidate_address, "city": city}
+    _, result = assessment(hotel, [candidate], "广州", "广州")
+    assert result["status"] == expected
+
+
 def test_numeric_delimiters_and_branch_wording_are_never_erased():
     hotel = {"name": "公寓", "address": "1-2号"}
     candidate = {"id": "one", "name": "公寓", "address": "12号", "city": "广州"}
@@ -86,6 +105,10 @@ def test_numeric_delimiters_and_branch_wording_are_never_erased():
         ("永乐路25号（东漖北路口）", "matched"),
         ("永乐路25号A口步行330米", "matched"),
         ("永乐路25号3楼前台", "matched"),
+        ("永乐路25号（3楼前台）", "matched"),
+        ("永乐路25号（地铁站出入口步行220米）", "matched"),
+        ("永乐路25号（3楼）", "unverified"),
+        ("永乐路25号（2单元）", "unverified"),
         ("永乐路26号(东漖北路口)", "unverified"),
         ("永乐路25号201室", "unverified"),
         ("永乐路25号之一", "unverified"),
@@ -104,6 +127,20 @@ def test_address_core_ignores_only_known_map_annotations(candidate_address, expe
     }
     result = assessment(hotel, [candidate], None, "广州", stay_city_basis="广州")[1]
     assert result["status"] == expected
+
+
+@pytest.mark.parametrize(
+    "first,second",
+    [
+        ("（4楼）", "（7楼）"),
+        ("（A座201室）", "（A座501室）"),
+        ("（1单元）", "（2单元）"),
+    ],
+)
+def test_parenthesized_address_locators_remain_distinct(first, second):
+    hotel = {"name": "同名住宿", "address": "永乐路25号" + first}
+    candidate = {"id": "one", "name": hotel["name"], "city": "广州", "address": "永乐路25号" + second}
+    assert assessment(hotel, [candidate], "广州", "广州")[1]["status"] == "unverified"
 
 
 @pytest.mark.parametrize(
@@ -519,6 +556,29 @@ def test_geocode_is_skipped_without_a_unique_plausible_candidate():
         SimpleNamespace(geocode=geocode), {"address": "测试地址"}, options, refs, matched, "广州"
     )
     assert result == matched and calls == []
+
+
+@pytest.mark.parametrize(
+    "address,candidate_address",
+    [
+        ("永乐路25号（4楼）", "永乐路25号（7楼）"),
+        ("永乐路25号（1单元）", "永乐路25号（2单元）"),
+        ("永乐路25号（1单元）", "永乐路25号"),
+        ("永乐路25号", "永乐路26号"),
+    ],
+)
+def test_geocode_cannot_resolve_distinct_address_locators(address, candidate_address):
+    candidate = {"id": "a", "address": candidate_address, "name_match": True, "city_match": True}
+    refs = {"a": Point("amap", "a", "同名住宿", 113, 23)}
+    matched = {"status": "unverified", "selected_id": None, "explanation": "待核实"}
+
+    def geocode(_address, _city):
+        pytest.fail("Geocoding cannot establish the same hotel in this case")
+
+    result = TravelService._geocode_identity(
+        SimpleNamespace(geocode=geocode), {"address": address}, [candidate], refs, matched, "广州"
+    )
+    assert result == matched
 
 
 def test_geocode_is_skipped_when_the_stay_has_no_address():

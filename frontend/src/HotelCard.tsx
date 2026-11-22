@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
+import type {ComponentProps} from 'react';
 import {hotelQuotes} from './api';
 import HotelTransport from './HotelTransport';
 import QuoteEvidence from './QuoteEvidence';
@@ -10,7 +11,9 @@ import {money, safeBooking, sourceEntry, stale, timeText} from './format';
 import {DEMO_SOURCE_NAME} from './OfflineNotice';
 import type {Hotel, QuotesResponse, SearchInput} from './types';
 
-export default function HotelCard({hotel,requestId,queriedAt,context,sourceName='道旅',sourceId,offline=false,compareSelected,compareDisabled,onCompareToggle,onQuote}:{hotel:Hotel;requestId:string;queriedAt:string;context:SearchInput;sourceName?:string;sourceId?:string;offline?:boolean;compareSelected:boolean;compareDisabled:boolean;onCompareToggle:()=>void;onQuote?:(quote:QuotesResponse|null)=>void}) {
+type TransportProps=Pick<ComponentProps<typeof HotelTransport>,'destination'|'onObservation'>;
+
+export default function HotelCard({hotel,requestId,queriedAt,context,sourceName='道旅',sourceId,offline=false,compareSelected,compareDisabled,onCompareToggle,onQuote,transport}:{hotel:Hotel;requestId:string;queriedAt:string;context:SearchInput;sourceName?:string;sourceId?:string;offline?:boolean;compareSelected:boolean;compareDisabled:boolean;onCompareToggle:()=>void;onQuote?:(quote:QuotesResponse|null)=>void;transport?:TransportProps}) {
   const [expanded,setExpanded] = useState(false);
   const [loading,setLoading] = useState(false);
   const [data,setData] = useState<QuotesResponse|null>(null);
@@ -64,7 +67,7 @@ export default function HotelCard({hotel,requestId,queriedAt,context,sourceName=
         <p className="query-time">{offline?'数据集读取于':'搜索于'} {timeText(queriedAt)} · {offline?'仅为模拟搜索参考价，非真实房价':'参考价并非最终付款金额，详情以供应商为准'}</p>
       </div>
     </div>
-    <HotelTransport hotel={hotel} requestId={requestId} context={context} offline={offline}/>
+    <HotelTransport hotel={hotel} requestId={requestId} context={context} offline={offline} {...transport}/>
     {expanded && <section className="room-panel" aria-label={hotel.name+'的房型报价'}>
       <div className="room-toolbar"><div><h4>房型与报价</h4><p>{data ? '查询于 '+timeText(data.queried_at) : loading ? '正在获取新的房型报价…' : '暂未取得报价'}</p></div>
         <button type="button" className="text-button" onClick={()=>void load()} disabled={loading}>{loading?'查询中…':'↻ 刷新报价'}</button></div>

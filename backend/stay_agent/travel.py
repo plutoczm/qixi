@@ -29,7 +29,7 @@ from .contracts import (
     SubwayEvidence,
     WalkingEvidence,
 )
-from .travel_rules import assessment, city_name, entrance_name, fare_amount
+from .travel_rules import address_locators_agree, assessment, city_name, entrance_name, fare_amount
 
 PROVIDERS = {"amap": "高德", "tencent": "腾讯", "didi": "滴滴"}
 
@@ -151,7 +151,10 @@ class TravelService:
         if len(eligible) != 1:
             return matched
         index = eligible[0]
-        point = hotel_refs.get(hotel_options[index]["id"])
+        candidate = hotel_options[index]
+        if not address_locators_agree(address, candidate.get("address")):
+            return matched
+        point = hotel_refs.get(candidate["id"])
         if point is None:
             return matched
         geocode = getattr(client, "geocode", None)

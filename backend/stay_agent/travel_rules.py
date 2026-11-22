@@ -8,8 +8,17 @@ import unicodedata
 # parenthetical notes such as "(东漖北路口)" and explicit facility descriptions
 # such as "A口步行330米" or "3楼前台". Only these known patterns are removed;
 # doorplate numbers, delimiters, room numbers and branch wording stay intact.
-_PAREN = re.compile(r"\([^()]{1,40}\)")
-_NOISE_SUFFIX = re.compile(r"(?:[A-Za-z]?\d*口?步行\d+(?:\.\d+)?米|\d+楼前台|\d+层前台)")
+_PAREN = re.compile(r"\(([^()]{1,40})\)")
+_WALK_NOTE = r"[a-z]?\d*口?步行\d+(?:\.\d+)?米"
+_FRONT_DESK = r"\d+(?:楼|层)前台"
+_NOISE_SUFFIX = re.compile(rf"(?:{_WALK_NOTE}|{_FRONT_DESK})$")
+_WAYFINDING = re.compile(rf"(?:[^()]+路口|[^()]*{_WALK_NOTE})")
+_BRANCH_LABEL = re.compile(r"([^·()]+)(?:·([^·()]+)|\(([^·()]+)\))")
+_LOCATOR = re.compile(
+    r"((?:地上|地下|负)?[a-z]?[0-9零〇一二三四五六七八九十百两]+"
+    r"(?:[-至][0-9零〇一二三四五六七八九十百两]+)?|[a-z])"
+    r"(号楼|单元|栋|幢|座|楼|层|房|室|号(?!线|口))"
+)
 
 
 def normalized(value):
@@ -18,12 +27,21 @@ def normalized(value):
     )
 
 
+def _without_wayfinding(match):
+    note = match[1]
+    if re.fullmatch(_FRONT_DESK, note):
+        return ""
+    if _WAYFINDING.fullmatch(note) and not _LOCATOR.search(note):
+        return ""
+    return match[0]
+
+
 def address_core(value):
     """Address body with only the known non-doorplate annotations removed."""
     text = normalized(value)
     for _ in range(3):
         before = text
-        text = _PAREN.sub("", text)
+        text = _PAREN.sub(_without_wayfinding, text)
         text = _NOISE_SUFFIX.sub("", text)
         if text == before:
             break
@@ -39,15 +57,37 @@ def address_matches(left, right):
     return left_core == right_core
 
 
+def address_locators_agree(left, right):
+    """Geocoding can check the street location, without resolving a floor or unit."""
+    def parts(address):
+        doors, rooms = set(), set()
+        for number, kind in _LOCATOR.findall(address_core(address)):
+            if kind == "号":
+                doors.add(number)
+            else:
+                rooms.add((number, "楼" if kind == "层" else kind))
+        return doors, rooms
+
+    left_doors, left_rooms = parts(left)
+    right_doors, right_rooms = parts(right)
+    return left_rooms == right_rooms and (
+        not left_doors or not right_doors or left_doors == right_doors
+    )
+
+
 def city_name(value):
     text = normalized(value)
     return text[:-1] if text.endswith("市") else text
 
 
-def checks(hotel, candidate, original_city, requested_city, stay_city_basis=None):
-    def compare(left, right):
-        return normalized(left) == normalized(right) if left and right else None
+def _branch_parts(name):
+    match = _BRANCH_LABEL.fullmatch(name)
+    if match:
+        return match[1], match[2] or match[3]
+    return None
 
+
+def checks(hotel, candidate, original_city, requested_city, stay_city_basis=None):
     # The stay source has no city field of its own. `stay_city_basis` is only
     # passed by the caller that KNOWS the stay was returned by a search issued
     # for that city (the places flow). Callers that recovered the stay from a
@@ -59,11 +99,16 @@ def checks(hotel, candidate, original_city, requested_city, stay_city_basis=None
         if base_city and requested_city and candidate.get("city")
         else None
     )
-    return {
-        "name_match": compare(hotel.get("name"), candidate.get("name")),
-        "address_match": address_matches(hotel.get("address"), candidate.get("address")),
-        "city_match": city,
-    }
+    address = address_matches(hotel.get("address"), candidate.get("address"))
+    stay_name = normalized(hotel.get("name"))
+    map_name = normalized(candidate.get("name"))
+    name = stay_name == map_name if stay_name and map_name else None
+    if name is False and address is True and city is True:
+        # Suppliers may render the same complete branch label as "酒店·分店" or "酒店(分店)".
+        # Only use this equivalence when the address and city already agree.
+        stay_branch = _branch_parts(stay_name)
+        name = stay_branch is not None and stay_branch == _branch_parts(map_name)
+    return {"name_match": name, "address_match": address, "city_match": city}
 
 
 def assessment(hotel, candidates, original_city, requested_city, stay_city_basis=None):

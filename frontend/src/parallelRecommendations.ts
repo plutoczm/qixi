@@ -9,7 +9,10 @@ type Recommendation = {
 const maxQuoteAge=5*60*1000;
 const maxWalkMetres=1500;
 const fresh=(at:string,now:number)=>now-Date.parse(at)>=0&&now-Date.parse(at)<=maxQuoteAge;
+const currentWalk=(walk:WalkEvidence|undefined,now:number)=>
+  walk&&walk.expiresAt>now&&Number.isFinite(walk.metres)&&walk.metres>=0?walk.metres:null;
 export const parallelHotelKey=(requestId:string,hotelId:number)=>requestId+':'+hotelId;
+export const parallelHotelAnchor=(operationId:string,key:string)=>'parallel-hotel-'+operationId+'-'+key;
 
 export function conflictingParallelQuote(quote:QuotesResponse) {
   return quote.occupancy_status==='mismatch'||quote.error?.code==='CONTEXT_MISMATCH'
@@ -34,6 +37,7 @@ export function recommendParallel(
   walks:Readonly<Record<string,WalkEvidence>>,
   requireWalk:boolean,
   now=Date.now(),
+  cardWalks:Readonly<Record<string,WalkEvidence>>={},
 ):Recommendation[]{
   const choices:Recommendation[]=[];
   const {budget_fen:budget,rooms,check_in,check_out}=batch.context;
@@ -42,17 +46,19 @@ export function recommendParallel(
     const search=source.search;
     if(!search){
       if(source.id==='flyai')source.candidates.forEach((hotel,index)=>{
-        choices.push({key:'flyai:'+index,name:hotel.name,address:hotel.address,source:'飞猪',tier:'pending',
-          verifiedRoom:false,walkMetres:null,hasReference:false,budgetClue:'unknown',
-          reasons:['入住组合与报价口径待核实',...(requireWalk?['步行距离待核实']:[])]});
+        const key='flyai:'+index;
+        const walkMetres=currentWalk(cardWalks[key],now);
+        choices.push({key,name:hotel.name,address:hotel.address,source:'飞猪',tier:'pending',
+          verifiedRoom:false,walkMetres,hasReference:false,budgetClue:'unknown',
+          reasons:['入住组合与报价口径待核实',...walkReasons(walkMetres,requireWalk)]});
       });
       continue;
     }
     for(const hotel of search.hotels){
       const key=parallelHotelKey(search.request_id,hotel.id);
-      const route=walks[key];
-      const validWalk=route&&route.expiresAt>now&&Number.isFinite(route.metres)&&route.metres>=0?route.metres:null;
-      if(requireWalk&&validWalk!==null&&validWalk>maxWalkMetres)continue;
+      const requiredWalk=currentWalk(walks[key],now);
+      if(requireWalk&&requiredWalk!==null&&requiredWalk>maxWalkMetres)continue;
+      const validWalk=requiredWalk??currentWalk(cardWalks[key],now);
       const rooms=quotes[key];
       const bound=rooms?.source.id===source.id&&rooms.request_id===search.request_id&&rooms.hotel_id===hotel.id;
       if(bound&&conflictingParallelQuote(rooms))continue;
@@ -70,24 +76,30 @@ export function recommendParallel(
         ? (price<=budget?'within':'over') : 'unknown';
       const reasons=[
         qualified?'同轮房型参考通过核对':hasReference?'已取得人民币参考价，报价口径和入住条件待核实':'房型与完整费用待核实',
-        ...(requireWalk?[validWalk===null?'步行距离待核实':'已核实步行 '+validWalk+' 米']:[]),
+        ...walkReasons(validWalk,requireWalk),
       ];
       if(!qualified&&budgetClue!=='unknown'){
         reasons.push(budgetClue==='within'?'展示价未超过预算上限，仅作预算核对线索':'展示价高于预算上限，仅作预算核对线索');
       }
       choices.push({key,name:hotel.name,address:hotel.address,source:search.source.name,
-        tier:qualified&&(!requireWalk||validWalk!==null)?'reference':'pending',reasons,
+        tier:qualified&&(!requireWalk||requiredWalk!==null)?'reference':'pending',reasons,
         verifiedRoom:!!qualified,walkMetres:validWalk,hasReference,budgetClue});
     }
   }
   const budgetOrder={within:0,unknown:1,over:2};
   return choices.sort((a,b)=>
     Number(b.tier==='reference')-Number(a.tier==='reference')
+    || Number(b.walkMetres!==null)-Number(a.walkMetres!==null)
+    || (a.walkMetres??0)-(b.walkMetres??0)
     || Number(b.verifiedRoom)-Number(a.verifiedRoom)
-    || (requireWalk?(a.walkMetres??maxWalkMetres+1)-(b.walkMetres??maxWalkMetres+1):0)
     || (a.tier==='pending'&&!a.verifiedRoom&&!b.verifiedRoom?budgetOrder[a.budgetClue]-budgetOrder[b.budgetClue]:0)
     || Number(Boolean(b.address))-Number(Boolean(a.address))
     || Number(b.hasReference)-Number(a.hasReference));
+}
+
+function walkReasons(metres:number|null,requireWalk:boolean):string[] {
+  if(metres!==null)return ['已核实步行 '+metres+' 米'];
+  return requireWalk?['步行距离待核实']:[];
 }
 
 export function shortlistParallel(rows:readonly Recommendation[]) {

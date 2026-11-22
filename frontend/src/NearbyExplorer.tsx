@@ -5,10 +5,11 @@ import {exploreNearby,exploreParallelNearby,resolveNearby,walkNearby,searchHotel
 import ParallelHotelResults from './ParallelHotelResults';
 import {parallelHotelKey} from './parallelRecommendations';
 import type {WalkEvidence} from './parallelRecommendations';
+import type {ConfirmedDestination} from './HotelTransport';
 import {comparableNearbyCount,mixedNearbyReviewSources,nearbyGuestReview,nearbyPoiRating,nearbyWalkMetres,rankNearbyHotels} from './nearbyRanking';
 import type {NearbySort} from './nearbyRanking';
 import type {
-  Hotel,NearbyExploreResponse,NearbyHotelOption,
+  Hotel,NearbyExploreResponse,NearbyHotelOption,NearbyPlaceOption,
   NearbyRecommendationLink,NearbyResolveResponse,NearbyWalkResponse,ParallelSearchResponse,SearchInput,SearchResponse,
 } from './types';
 
@@ -18,11 +19,17 @@ type Props={
   hotels:Hotel[];
   offline:boolean;
   parallel?:boolean;
+  onSearchDestination?:(destination:ConfirmedDestination|null)=>void;
 };
 const textError=(reason:unknown)=>reason instanceof Error?reason.message:'操作没有完成，请确认地点后重试。';
 const metres=(distance:number)=>distance>=1000?(distance/1000).toFixed(2)+' 公里':distance+' 米';
 
-export default function NearbyExplorer({requestId,context,hotels,offline,parallel=false}:Props){
+function confirmedDestination(point:NearbyPlaceOption|undefined,resolved:NearbyResolveResponse|null,expiresAt:number):ConfirmedDestination|null {
+  if(!resolved?.context_id||!point?.name.trim()||!point.address?.trim()||!point.city?.trim())return null;
+  return {name:point.name,address:point.address,city:point.city,expiresAt,dataMode:resolved.data_mode};
+}
+
+export default function NearbyExplorer({requestId,context,hotels,offline,parallel=false,onSearchDestination}:Props){
   const [name,setName]=useState(context.place_type==='城市'?'':context.place);
   const [city,setCity]=useState(context.place_type==='城市'?context.place:'');
   const [provider,setProvider]=useState<'amap'|'tencent'>('amap');
@@ -51,6 +58,10 @@ export default function NearbyExplorer({requestId,context,hotels,offline,paralle
   const active=useRef<AbortController|null>(null);
   const generation=useRef(0);
   const rankingContext=Date.now()<expiresAt?(nearby?.context_id??''):'';
+  const selectedPoint=resolved?.options.find(point=>point.id===selected);
+  const destination=confirmedDestination(selectedPoint,resolved,expiresAt);
+  const resolvesSearchDestination=!!onSearchDestination&&context.place_type!=='城市'&&context.place_type!=='区/县'
+    &&name.trim()===context.place;
   useEffect(()=>()=>{
     generation.current++;
     active.current?.abort();
@@ -58,6 +69,7 @@ export default function NearbyExplorer({requestId,context,hotels,offline,paralle
   const reset=()=>{
     generation.current++;
     active.current?.abort();
+    onSearchDestination?.(null);
     setBusy(null);setError('');setResolved(null);setSelected('');setExpiresAt(0);
     setNearby(null);setRecommendationLinks([]);setWalks({});setWalkAttempts([]);setSourceSearch(null);setBatch(null);setSourceAttempted(false);
     setMaxMetres(2000);setSort('distance');setVerifiedOnly(false);
@@ -220,10 +232,16 @@ export default function NearbyExplorer({requestId,context,hotels,offline,paralle
       {error&&<p className="nearby-error" role="alert">{error}</p>}
       {resolved&&<div className="nearby-choices">
         <h4>2 · 确认一个地点 <small>已排除明确跨城结果，优先同城与名称相近候选 · 有效约 2 分钟</small></h4>
+        {resolvesSearchDestination&&<p>核对完整地点后，从这里出发的步行路线可用于本轮推荐排序。</p>}
         <div className="nearby-option-list" role="radiogroup" aria-label="地图候选地点">
           {resolved.options.map(point=><label className={'nearby-option'+(selected===point.id?' selected':'')} key={point.id}>
             <input type="radio" name="nearby-anchor" checked={selected===point.id} disabled={!!busy||!!nearby||sourceAttempted}
-              onChange={()=>{setSelected(point.id);setNearby(null);setWalks({});setWalkAttempts([]);setError('');}}/>
+              onChange={()=>{
+                setSelected(point.id);setNearby(null);setWalks({});setWalkAttempts([]);setError('');
+                if(resolvesSearchDestination){
+                  onSearchDestination?.(Date.now()<expiresAt?confirmedDestination(point,resolved,expiresAt):null);
+                }
+              }}/>
             <span><strong>{point.name}</strong><small>{[point.city,point.address].filter(Boolean).join(' · ')||'地址尚未返回'} · {point.category||'类别未核实'}</small></span>
           </label>)}
           {!resolved.options.length&&<p>地图未提供可核对的具体地点。换更精确的名称再搜索，不自动选第一项。</p>}
@@ -239,7 +257,7 @@ export default function NearbyExplorer({requestId,context,hotels,offline,paralle
           {busy==='nearby'?'正在找附近酒店…':'3 · 查找此地点附近的酒店（1 次地图请求）'}
         </button>}
       </div>}
-      {batch&&<ParallelHotelResults key={batch.operation_id} batch={batch} requireWalk walks={recommendationWalks}/>}
+      {batch&&<ParallelHotelResults key={batch.operation_id} batch={batch} requireWalk walks={recommendationWalks} destination={destination}/>}
       {sourceSearch&&!batch&&<details><summary>查看本轮目的地住宿来源参考与房型入口</summary>
         <HotelResults result={sourceSearch} multi={null} hotels={sourceSearch.hotels}/>
       </details>}

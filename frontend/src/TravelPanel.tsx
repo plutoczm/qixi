@@ -2,6 +2,7 @@ import {useEffect,useId,useRef,useState} from 'react';
 import {travelPlaces,travelRoute} from './api';
 import {PlanAssessmentCard} from './DecisionPanel';
 import {money,timeText} from './format';
+import type {PlaceIdentity} from './HotelTransport';
 import type {Hotel,PlaceOption,SearchInput,TravelPlacesResponse,TravelRouteResponse} from './types';
 
 type Provider='amap'|'tencent'|'didi';
@@ -14,15 +15,16 @@ export type TransportObservation = {
   hotel:PlaceOption;
 };
 
-export default function TravelPanel({hotel,requestId,context,offline=false,onResult}:{
+export default function TravelPanel({hotel,requestId,context,offline=false,destination,onResult}:{
   hotel:Pick<Hotel,'id'|'name'|'address'>;requestId:string;context:SearchInput;offline?:boolean;
+  destination?:PlaceIdentity|null;
   onResult?:(observation:TransportObservation|null)=>void;
 }) {
   const destinationMode=!!onResult&&!offline;
   const [provider,setProvider]=useState<Provider>('amap');
-  const [city,setCity]=useState(context.place_type==='城市'?context.place:'');
+  const [city,setCity]=useState(destination?.city??(context.place_type==='城市'?context.place:''));
   const [keyword,setKeyword]=useState(destinationMode
-    ? context.poi_name??(context.place_type==='城市'?'':context.place)
+    ? destination?.name??context.poi_name??(context.place_type==='城市'?'':context.place)
     : '海底捞');
   const [places,setPlaces]=useState<TravelPlacesResponse|null>(null);
   const [result,setResult]=useState<TravelRouteResponse|null>(null);

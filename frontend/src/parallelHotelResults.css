@@ -7,3 +7,4 @@
 .parallel-source h3 small { font-weight: normal; margin-inline-start: .4rem; }
 .parallel-source > p { margin-block: .35rem .65rem; }
 .parallel-source .candidate-results { margin-top: .65rem; }
+.parallel-hotel-target { scroll-margin-top: 6rem; }

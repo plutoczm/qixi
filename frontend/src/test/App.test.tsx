@@ -1,13 +1,27 @@
 import {render,screen,fireEvent,waitFor,within} from '@testing-library/react';
 import {beforeEach,describe,expect,it,vi} from 'vitest';
 import App from '../App';
+import ParallelHotelResults from '../ParallelHotelResults';
 import SearchForm from '../SearchForm';
 import {health,searchHotels,hotelQuotes,checkpointState,saveCheckpoint,parallelSearchHotels,cancelParallelSearch} from '../api';
 import {searchFixture,quotesFixture} from './fixtures';
-import type {Health} from '../types';
+import type {Health,ParallelSearchResponse} from '../types';
 vi.mock('../api',()=>({health:vi.fn(),searchHotels:vi.fn(),hotelQuotes:vi.fn(),travelPlaces:vi.fn(),travelRoute:vi.fn(),discoverySearch:vi.fn(),checkpointState:vi.fn(),saveCheckpoint:vi.fn(),resumeCheckpoint:vi.fn(),parallelSearchHotels:vi.fn(),cancelParallelSearch:vi.fn()}));
 beforeEach(()=>{vi.resetAllMocks();vi.mocked(health).mockResolvedValue({status:'ok',provider:'rollinggo',credential_configured:true,web_ready:true,today_shanghai:'2026-10-16',features:{maps:false,fare:false,llm:false,multi_branch_recall:true}, data_mode:'live', dataset:null, channels:{}});vi.mocked(checkpointState).mockResolvedValue({connected:true,status:'connected',disconnected_at:null});vi.mocked(saveCheckpoint).mockResolvedValue({status:'saved',checkpoint:{connected:false,status:'disconnected',disconnected_at:'2026-11-09T10:00:00Z',checkpoint_id:'break-demo'}});});
 describe('query browser',()=>{
+  it('keeps recommendation targets distinct when two searches show separate FlyAI candidates',()=>{
+    const first:ParallelSearchResponse={operation_id:'city-search',status:'partial',context:searchFixture().context,
+      sources:[{id:'flyai',status:'complete',http_used:1,observed_at:null,unavailable_reason:null,search:null,
+        candidates:[{name:'城市候选',address:'第一路1号',price_text:'¥180',star:null,nearby_transit:null,coordinates_present:false}]}]};
+    const second:ParallelSearchResponse={...first,operation_id:'destination-search',sources:[
+      {...first.sources[0],candidates:[{...first.sources[0].candidates[0],name:'目的地候选',address:'第二路1号'}]},
+    ]};
+    render(<><ParallelHotelResults batch={first}/><ParallelHotelResults batch={second}/></>);
+    for(const name of ['城市候选','目的地候选']){
+      const target=screen.getByRole('link',{name}).getAttribute('href')!.slice(1);
+      expect(document.getElementById(target)).toHaveTextContent(name);
+    }
+  });
  it('submits one three-source search, keeps the failed source visible and opens quotes from the original search',async()=>{
   const original=searchFixture();
   original.hotels[0].guest_score={value:4.6,scale:5,source:'有授权的住客点评'};

@@ -1,5 +1,14 @@
 import {referenceFen} from './CandidateComparison';
+import {budgetFen} from './format';
 import type {Hotel} from './types';
+
+export type HotelLocalFilters = {keyword:string;maxPrice:string};
+export const emptyHotelLocalFilters:HotelLocalFilters={keyword:'',maxPrice:''};
+
+export function parseHotelLocalPrice(maxPrice:string) {
+  try { return {fen:budgetFen(maxPrice),invalid:false}; }
+  catch { return {fen:null,invalid:true}; }
+}
 
 export type HotelLocalSort = 'source' | 'price_low' | 'price_high';
 export type HotelLocalOptions = {
